@@ -35,7 +35,7 @@ public class MainActivity extends Activity {
 
 
             //Definindo configurações do metronomo
-            compasso.setFrequenciaBPM(999); // Frequencia em BPM
+            compasso.setFrequenciaBPM(120); // Frequencia em BPM
             compasso.setTempoMinutos(1); // Duração em minutos
             compasso.setSom(som); // Som a ser tocado (Alto e baixo)
             compasso.setQuantidadeBatidas(4); // Quantidade de batidas por ciclo
