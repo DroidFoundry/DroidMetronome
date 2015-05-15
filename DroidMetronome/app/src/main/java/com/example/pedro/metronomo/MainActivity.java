@@ -1,19 +1,14 @@
 package com.example.pedro.metronomo;
 
 import android.app.Activity;
-import android.media.AudioManager;
-import android.media.SoundPool;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 
 public class MainActivity extends Activity {
-    private NotaAudio som;
-    private Compasso compasso;
+    private Executer executer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,37 +17,9 @@ public class MainActivity extends Activity {
     }
 
     public void executar(View view){
-        SoundPool sound = new SoundPool(4, AudioManager.STREAM_MUSIC,0);
-
-        int id_Alto = sound.load(this,R.raw.beep_2,1);
-        Log.d("TIME","Alto: "+String.valueOf(id_Alto));
-        int id_Baixo = sound.load(this,R.raw.beep_1,1);
-        Log.d("TIME","Baixo: "+String.valueOf(id_Baixo));
-
-
-            this.compasso = new Compasso();
-            this.som = new NotaAudio(sound,id_Alto,id_Baixo);
-
-
-            //Definindo configurações do metronomo
-            compasso.setFrequenciaBPM(120); // Frequencia em BPM
-            compasso.setTempoMinutos(1); // Duração em minutos
-            compasso.setSom(som); // Som a ser tocado (Alto e baixo)
-            compasso.setQuantidadeBatidas(4); // Quantidade de batidas por ciclo
-            //====================================
-
-            try {
-                compasso.startMetronomo();
-
-            } catch (InterruptedException e) {
-                Toast mensagem = Toast.makeText(this, "Ocorreu um erro.", Toast.LENGTH_SHORT);
-                mensagem.show();
-
-            }
-
-            Toast mensagem = Toast.makeText(this, "Compasso já inicializado.", Toast.LENGTH_SHORT);
-            mensagem.show();
-
+        executer =  new Executer();
+        executer.preExecuter(this);
+        executer.onExecuter(this);
     }
 
     @Override
@@ -79,9 +46,6 @@ public class MainActivity extends Activity {
 
     @Override
     protected void onDestroy() {
-        Toast mensagem = Toast.makeText(this,"Destruindo activity.",Toast.LENGTH_SHORT);
-        mensagem.show();
-
         super.onDestroy();
     }
 }

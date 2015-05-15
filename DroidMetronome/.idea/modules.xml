@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file:///media/Arquivos_do_Windows_8.1/Users/Gustavo/Dropbox/Tarefas/AndroidStudioProjects/DroidMetronome/DroidMetronome/DroidMetronome.iml" filepath="/media/Arquivos_do_Windows_8.1/Users/Gustavo/Dropbox/Tarefas/AndroidStudioProjects/DroidMetronome/DroidMetronome/DroidMetronome.iml" />
-      <module fileurl="file:///media/Arquivos_do_Windows_8.1/Users/Gustavo/Dropbox/Tarefas/AndroidStudioProjects/Metronomo/app/app.iml" filepath="/media/Arquivos_do_Windows_8.1/Users/Gustavo/Dropbox/Tarefas/AndroidStudioProjects/Metronomo/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
 </project>

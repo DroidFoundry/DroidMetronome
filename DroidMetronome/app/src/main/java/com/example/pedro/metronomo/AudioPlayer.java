@@ -1,15 +1,11 @@
 package com.example.pedro.metronomo;
 
-import android.media.MediaPlayer;
 import android.media.SoundPool;
-import android.util.Log;
-
-import java.util.TimerTask;
 
 /**
  * Created by pedro on 12/05/15.
  */
-public class NotaAudio implements Runnable{
+public class AudioPlayer implements Runnable{
     private int somAlto;
     private int somBaixo;
 
@@ -18,12 +14,12 @@ public class NotaAudio implements Runnable{
     private int batidasMaximo;
     private int batidasAtual;
 
-    public NotaAudio(SoundPool sound,int somAlto,int somBaixo){
+    public AudioPlayer(SoundPool sound,int somAlto,int somBaixo){
         this.sound = sound;
         this.somAlto = somAlto;
         this.somBaixo = somBaixo;
 
-        this.batidasAtual = 1;
+        this.batidasAtual = 0;
     }
 
     public void setBatidasMaximo(int batidasMaximo) {
