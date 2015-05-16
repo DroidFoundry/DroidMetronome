@@ -4,50 +4,73 @@ package com.example.pedro.metronomo;
 /**
  * Created by pedro on 12/05/15.
  */
-public class Compasso extends Thread{
+public class Compasso extends Thread {
     private long frequenciaBPM;
-    private int tempoMinutos;
+    private boolean stopNow;
 
     private AudioPlayer som;
 
-    public void setTempoMinutos(int tempoMinutos) {
-        this.tempoMinutos = tempoMinutos;
-    }
-
+    /**
+     * Define a frequencia da batida em BPM
+     * @param frequenciaBPM
+     */
     public void setFrequenciaBPM(long frequenciaBPM) {
         this.frequenciaBPM = frequenciaBPM;
     }
 
+    /**
+     * Define os sons a serem tocados
+     * @param som
+     */
     public void setSom(AudioPlayer som) { this.som = som; }
 
+    /**
+     * Define a quantidade de batidas tocadas por ciclo
+     * @param batidas
+     */
     public void setQuantidadeBatidas(int batidas){
         this.som.setBatidasMaximo(batidas);
     }
 
+    /**
+     * Converte de BPM para BPS
+     * @param bpm
+     * @return
+     */
     private double conversorBPM(long bpm){return (bpm/(double)60);}
 
-    public void startMetronomo() throws InterruptedException {
-        //Handler handler = new Handler();
-        //Para 30 BPM 4/4
+    /**
+     * Execução da o Metronomo em uma thread separada
+     */
+    @Override
+    public void run() {
         double frequenciaSegundos = this.conversorBPM(this.frequenciaBPM);
-        double Delay = 1000/frequenciaSegundos; // (2000 milisegundos)
-        int tempoMiliSegundos = (this.tempoMinutos * 60 * 1000); // (60000 milisegundos)
+        double Delay = 1000/frequenciaSegundos;
 
-        int quantidadeCiclo = (int)Math.floor(tempoMiliSegundos/(som.getBatidasMaximo() * Delay)); // 60/8 (8 ciclos)
+        this.stopNow = false;
 
-        //som.run();
-        for(int contador = 0; contador < quantidadeCiclo; contador++){
+        try {
+            while(true) {
 
-            for(int index = 0;index < som.getBatidasMaximo();index++) {
-                //Log.d("TIME", "bip " + (index + 1));
+                som.play();
+                Thread.sleep((long) Delay);
 
-                som.run();
-                Thread.sleep((long)Delay);
-
+                if(stopNow) break;
             }
-            //Log.d("TIME","Fim do ciclo: " + String.valueOf(contador+1));
-            //Log.d("TIME","Delay: " + String.valueOf(Delay));
+        } catch (InterruptedException e) {
+
+        } finally {
+            som.stop();
         }
 
     }
+
+    /**
+     * Para o metronomo e encerra a Thread
+     */
+    public void stopMetronomo(){
+        this.stopNow = true;
+        som.stop();
+    }
+
 }

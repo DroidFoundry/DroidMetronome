@@ -3,6 +3,7 @@ package com.example.pedro.metronomo;
 import android.content.Context;
 import android.media.AudioManager;
 import android.media.SoundPool;
+import android.util.Log;
 import android.widget.Toast;
 
 /**
@@ -10,43 +11,46 @@ import android.widget.Toast;
  */
 public class Executer {
 
-    private AudioPlayer som;
     private Compasso compasso;
 
+    /**
+     * Pre-execução do metronomo , definindo sons e valores.
+     * @param context
+     */
     public void preExecuter(Context context){
-        SoundPool sound = new SoundPool(4, AudioManager.STREAM_MUSIC,0);
+
+        SoundPool sound = new SoundPool(10, AudioManager.STREAM_MUSIC,0);
 
         int id_Alto = sound.load(context,R.raw.beep_2,1);
-        //Log.d("TIME", "Alto: " + String.valueOf(id_Alto));
         int id_Baixo = sound.load(context,R.raw.beep_1,1);
-        //Log.d("TIME","Baixo: "+String.valueOf(id_Baixo));
-
 
         this.compasso = new Compasso();
-        this.som = new AudioPlayer(sound,id_Alto,id_Baixo);
+        AudioPlayer som = new AudioPlayer(sound,id_Alto,id_Baixo);
 
         //Definindo configurações do metronomo
         this.compasso.setFrequenciaBPM(120); // Frequencia em BPM
-        this.compasso.setTempoMinutos(1); // Duração em minutos
-        this.compasso.setSom(this.som); // Som a ser tocado (Alto e baixo)
+        this.compasso.setSom(som); // Som a ser tocado (Alto e baixo)
         this.compasso.setQuantidadeBatidas(4); // Quantidade de batidas por ciclo
         //====================================
 
     }
 
-    public void onExecuter(Context context){
+    /**
+     * Define a prioridade da Thread e executa o metronomo
+     */
+    public void onExecuter(){
 
-        try {
-            this.compasso.startMetronomo();
+        compasso.setPriority(Thread.MIN_PRIORITY);
+        compasso.start();
+    }
 
-        } catch (InterruptedException e) {
-            Toast mensagem = Toast.makeText(context, "Ocorreu um erro.", Toast.LENGTH_SHORT);
-            mensagem.show();
-
+    /**
+     * Encerra o metronomo
+     */
+    public void stopExecuter(){
+        if(this.compasso != null){
+            this.compasso.stopMetronomo();
+            this.compasso = null;
         }
-
-        Toast mensagem = Toast.makeText(context, "Compasso já inicializado.", Toast.LENGTH_SHORT);
-        mensagem.show();
-
     }
 }
