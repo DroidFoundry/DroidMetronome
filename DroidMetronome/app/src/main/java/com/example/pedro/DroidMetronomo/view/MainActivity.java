@@ -2,7 +2,6 @@ package com.example.pedro.DroidMetronomo.view;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,23 +17,10 @@ public class MainActivity extends Activity {
     private Executer executer;
     private boolean inExecution;
 
-    private NumberPicker npBPM;
-    private NumberPicker npQntBatidas;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        npBPM = (NumberPicker) findViewById(R.id.bpm);
-        npBPM.setMinValue(10);
-        npBPM.setMaxValue(300);
-        npBPM.setValue(120); //Padrão
-
-        npQntBatidas = (NumberPicker) findViewById(R.id.qntBatidas);
-        npQntBatidas.setMinValue(1);
-        npQntBatidas.setMaxValue(16);
-        npQntBatidas.setValue(4); // Padrão
 
         executer =  new Executer();
         inExecution = false;
@@ -46,10 +32,19 @@ public class MainActivity extends Activity {
      */
     public void executar(View view){
         if(!inExecution) {
+            // Pegando os valores dos numberPickers
+            NumberPicker npFreq = (NumberPicker) findViewById(R.id.bpm);
+            //npFreq.setMinValue(10);
+            //npFreq.setMaxValue(300);
+
+            NumberPicker npQntBatidas = (NumberPicker) findViewById(R.id.qntBatidas);
+            //npQntBatidas.setMinValue(1);
+            //npQntBatidas.setMaxValue(16);
+            //=====================================
 
             FrontConversor conversor = new FrontConversor();
             conversor.setSom(this);
-            conversor.setFrequenciaBPM(npBPM);
+            conversor.setFrequenciaBPM(npFreq);
             conversor.setQuantidadeBatidas(npQntBatidas);
 
             executer.preExecuter(this,conversor.toCompasso()); // preparar

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="metronome_green">#8BC34A</color>
+    <color name="metronome_dark_green">#689f38</color>
+</resources>

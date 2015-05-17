@@ -34,11 +34,11 @@ public class FrontConversor {
     }
 
     public void setFrequenciaBPM(NumberPicker frequenciaPicker){
-        compasso.setFrequenciaBPM(frequenciaPicker.getValue());
+        compasso.setFrequenciaBPM(120);
     }
 
     public void setQuantidadeBatidas(NumberPicker frequenciaPicker){
-        compasso.setQuantidadeBatidas(frequenciaPicker.getValue());
+        compasso.setQuantidadeBatidas(4);
     }
 
 

@@ -1,8 +1,21 @@
 <resources>
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
+    <style name="AppTheme" parent="@style/Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/metronome_green</item>
+        <item name="colorPrimaryDark">@color/metronome_dark_green</item>
+
     </style>
 
+    <style name="Metronome.Main.Theme" parent="AppTheme">
+        <item name="android:actionBarStyle">@style/ActionBar.Metronome.Style</item>
+    </style>
+    <!-- main activity action bar styles -->
+    <style name="ActionBar.Metronome.Style" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
+
+        <item name="displayOptions">useLogo|showHome</item>
+    </style>
+
+
+
 </resources>
+
