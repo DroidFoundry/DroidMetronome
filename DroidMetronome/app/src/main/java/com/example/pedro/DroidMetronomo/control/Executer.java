@@ -1,11 +1,7 @@
 package com.example.pedro.DroidMetronomo.control;
 
 import android.content.Context;
-import android.media.AudioManager;
-import android.media.SoundPool;
 
-import com.example.pedro.metronomo.R;
-import com.example.pedro.DroidMetronomo.model.AudioPlayer;
 import com.example.pedro.DroidMetronomo.model.Compasso;
 
 /**
