@@ -3,8 +3,6 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-
     <NumberPicker
         android:layout_width="126dp"
         android:layout_height="wrap_content"
@@ -78,4 +76,3 @@
             android:layout_gravity="center" />
     </LinearLayout>
 </LinearLayout>
-
