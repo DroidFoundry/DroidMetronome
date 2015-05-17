@@ -4,5 +4,5 @@
     <string name="hello_world">Hello world!</string>
     <string name="main_menu">Metronomo de teste</string>
     <string name="play">Iniciar</string>
-    <string name="title_activity_main_activity2">Teste</string>
+    <string name="title_activity_main_activity2">Metronomo</string>
 </resources>
