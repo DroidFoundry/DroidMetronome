@@ -1,4 +1,4 @@
-package com.example.pedro.metronomo;
+package com.example.pedro.DoirMetronomo;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

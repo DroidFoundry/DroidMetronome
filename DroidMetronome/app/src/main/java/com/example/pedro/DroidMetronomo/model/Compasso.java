@@ -1,4 +1,5 @@
-package com.example.pedro.metronomo;
+package com.example.pedro.DroidMetronomo.model;
+
 
 
 /**

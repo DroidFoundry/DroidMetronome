@@ -8,24 +8,84 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    android:background="#ffd9"
-    tools:context=".activity_start_game">
+    android:background="#ffff"
+    tools:context=".activity_start_game"
+    android:id="@+id/u">
 
-    <Button
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/playStop"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/play"
-        android:onClick="executar"
+        android:gravity="center_horizontal"
+        android:layout_alignParentBottom="true">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/play"
+            android:onClick="executar"
+            android:id="@+id/play"
+            android:layout_gravity="center"
+            style="@style/Base.Animation.AppCompat.DropDownUp"
+            android:backgroundTint="@color/button_material_light" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="parar"
+            android:onClick="parar"
+            android:id="@+id/stop"
+            android:layout_alignParentBottom="true"
+            android:layout_toLeftOf="@+id/numberPicker2"
+            android:layout_toStartOf="@+id/numberPicker2"
+            android:layout_gravity="center" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/compasso"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+
+        android:clickable="false"
+
+        android:layout_above="@+id/playStop"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="70dp"
+        android:theme="@style/Base.V21.Theme.AppCompat.Light">
+
+        <NumberPicker
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/qntBatidas"
+
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            style="@style/Base.V21.Theme.AppCompat.Light" />
+
+        <NumberPicker
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/valorBase"
+            android:layout_below="@+id/numberPicker"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            style="@style/Base.V21.Theme.AppCompat.Light" />
+    </LinearLayout>
+
+    <NumberPicker
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/bpm"
+        style="@style/Base.V21.Theme.AppCompat.Light"
+        android:layout_marginTop="40dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="100dp" />
+        android:gravity="top"
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="parar"
-        android:onClick="parar"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:textAlignment="center" />" />
 
 
 </RelativeLayout>

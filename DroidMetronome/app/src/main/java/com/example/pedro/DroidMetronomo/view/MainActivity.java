@@ -1,22 +1,21 @@
-package com.example.pedro.metronomo;
+package com.example.pedro.DroidMetronomo.view;
 
 import android.app.Activity;
-import android.media.AudioManager;
-import android.media.SoundPool;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.NumberPicker;
 import android.widget.Toast;
+
+import com.example.pedro.DroidMetronomo.control.Executer;
+import com.example.pedro.metronomo.R;
+import com.example.pedro.DroidMetronomo.control.FrontConversor;
 
 
 public class MainActivity extends Activity {
     private Executer executer;
     private boolean inExecution;
-
-    private int id1;
-    private int id2;
-    private SoundPool sound;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +32,22 @@ public class MainActivity extends Activity {
      */
     public void executar(View view){
         if(!inExecution) {
-            executer.preExecuter(this); // preparar
+            // Pegando os valores dos numberPickers
+            NumberPicker npFreq = (NumberPicker) findViewById(R.id.numberPicker);
+            //npFreq.setMinValue(10);
+            //npFreq.setMaxValue(300);
+
+            NumberPicker npQntBatidas = (NumberPicker) findViewById(R.id.qntBatidas);
+            //npQntBatidas.setMinValue(1);
+            //npQntBatidas.setMaxValue(16);
+            //=====================================
+
+            FrontConversor conversor = new FrontConversor();
+            conversor.setSom(this);
+            conversor.setFrequenciaBPM(npFreq);
+            conversor.setQuantidadeBatidas(npQntBatidas);
+
+            executer.preExecuter(this,conversor.toCompasso()); // preparar
             executer.onExecuter(); // executar
 
             inExecution = true;
@@ -83,6 +97,12 @@ public class MainActivity extends Activity {
 
     @Override
     protected void onDestroy() {
+        if(inExecution){
+            executer.stopExecuter();
+            inExecution = false;
+
+        }
+
         super.onDestroy();
     }
 }

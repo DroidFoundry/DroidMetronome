@@ -9,8 +9,8 @@
         <option name="gradleJvm" value="1.8" />
         <option name="modules">
           <set>
-            <option value="/media/Arquivos_do_Windows_8.1/Users/Gustavo/Dropbox/Tarefas/AndroidStudioProjects/DroidMetronome/DroidMetronome" />
-            <option value="/media/Arquivos_do_Windows_8.1/Users/Gustavo/Dropbox/Tarefas/AndroidStudioProjects/DroidMetronome/DroidMetronome/app" />
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/app" />
           </set>
         </option>
       </GradleProjectSettings>
