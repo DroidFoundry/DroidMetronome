@@ -6,6 +6,7 @@ As imagens dos diagramas nesta pasta foram geradas com a ferramenta online [**dr
 * Diagrama de caso de uso UML DroidMetronome: https://drive.draw.io/#G0Bxwmgm18RI6JWWI5amhINV9XTVE
 * Diagrama de Componentes UML DroidMetronome: https://drive.draw.io/#G0Bxwmgm18RI6JTDBORGFnTDZLLXM
 * Diagrama de classes UML DroidMetronome: https://drive.draw.io/#G0B3Y7QqQ4H6oVQzROY2Rnb2picFk
+* Diagrama de implantação UML DroidMetronome: https://drive.draw.io/#G0B4ZuigSNuJEUQUdqc1BSNkUzVDQ
 * EAP DroidMetronome: https://drive.draw.io/#G0B865bB9KGot5U0dvdHV3Y0lwRjg
 * Matriz de Rastreabilidade - Requisitos Funcionais **x** Requisitos Não-Funcionais: https://docs.google.com/spreadsheets/d/1Mg2chI26E5p42VuY80qki75QoZFYdWL4uMKVR--43A0
 * Representação da Arquitetura MVC: https://drive.draw.io/#G0Bxwmgm18RI6Jb1l1T3djb0d2bEk
