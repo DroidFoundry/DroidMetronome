@@ -1,8 +1,11 @@
 <resources>
-    <string name="app_name">DroidMetronome</string>
+    <string name="app_name">Metronomo</string>
 
-
+    <string name="hello_world">Hello world!</string>
+    <string name="main_menu">Metronomo de teste</string>
     <string name="play">Iniciar</string>
     <string name="stop">Parar</string>
+    <string name="title_activity_main_activity2">Teste</string>
+    <string name="title_activity_main2">Main2Activity</string>
     <string name="action_settings">Settings</string>
 </resources>

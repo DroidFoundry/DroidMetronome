@@ -5,11 +5,11 @@ android {
     buildToolsVersion "21.1.2"
 
     defaultConfig {
-        applicationId "app.com.droidmetronome"
+        applicationId "com.DroidFoundry.DroidMetronome"
         minSdkVersion 15
         targetSdkVersion 22
         versionCode 1
-        versionName "0.1.0"
+        versionName "1.0"
     }
     buildTypes {
         release {
@@ -17,9 +17,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    productFlavors {
+    }
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:22.1.1'
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile 'com.android.support:appcompat-v7:21.0.3+'
 }
