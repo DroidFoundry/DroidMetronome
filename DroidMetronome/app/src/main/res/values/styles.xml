@@ -4,6 +4,8 @@
         <item name="colorPrimary">@color/metronome_green</item>
         <item name="colorPrimaryDark">@color/metronome_dark_green</item>
 
+
+
     </style>
 
     <style name="Metronome.Main.Theme" parent="AppTheme">
@@ -13,9 +15,9 @@
     <style name="ActionBar.Metronome.Style" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
 
         <item name="displayOptions">useLogo|showHome</item>
+        <item name="android:logo">@drawable/ic_launcher</item>
     </style>
 
 
-
+    
 </resources>
-
