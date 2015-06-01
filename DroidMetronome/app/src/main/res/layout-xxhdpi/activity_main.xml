@@ -15,65 +15,6 @@
     android:id="@+id/main">
 
     <LinearLayout
-        android:id="@+id/playStop"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        android:gravity="center_horizontal"
-        android:layout_alignParentBottom="true">
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/play"
-            android:onClick="executar"
-            android:id="@+id/play"
-            android:layout_gravity="center"
-            android:layout_marginRight="10dp"
-            />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="parar"
-            android:onClick="parar"
-            android:id="@+id/stop"
-            android:layout_gravity="center"
-            android:layout_marginLeft="10dp" />
-
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/compasso"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_horizontal"
-
-        android:clickable="false"
-
-        android:layout_above="@+id/playStop"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="20dp">
-
-        <NumberPicker
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/qntBatidas"
-
-            android:layout_marginRight="20dp" />
-
-        <NumberPicker
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/valorBase"
-            android:layout_marginLeft="20dp" />
-    </LinearLayout>
-
-    <LinearLayout
         android:id="@+id/tempo"
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -86,12 +27,12 @@
         <NumberPicker
             android:id="@+id/timer"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="120dp"
             android:layout_marginRight="20dp" />
 
         <NumberPicker
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="120dp"
             android:id="@+id/bpm"
             style="@style/Base.V21.Theme.AppCompat.Light"
             android:gravity="top"
@@ -105,14 +46,13 @@
         android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:layout_alignParentTop="true"
-        android:layout_alignLeft="@+id/tempo"
-        android:layout_alignStart="@+id/tempo">
+        android:layout_centerHorizontal="true">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Timer"
-            android:layout_marginRight="30dp"
+            android:layout_marginRight="60dp"
 
             android:id="@+id/textoBpm" />
 
@@ -122,19 +62,34 @@
             android:text="BPM"
             android:layout_marginLeft="30dp"
             android:id="@+id/textoTimer" />
-        <!--<ImageButton
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:src="@drawable/ic_action_play"
-        android:background="@drawable/floating_button_design"
-        android:id="@+id/imageButton"
-        android:layout_gravity="right|bottom"
-        android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/tempo"
-        android:layout_alignEnd="@+id/tempo" />-->
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/compasso"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:clickable="false"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
+        <NumberPicker
+            android:layout_width="wrap_content"
+            android:layout_height="120dp"
+            android:id="@+id/qntBatidas"
+
+            android:layout_marginRight="20dp"
+            android:layout_gravity="bottom" />
+
+        <NumberPicker
+            android:layout_width="wrap_content"
+            android:layout_height="120dp"
+            android:id="@+id/valorBase"
+            android:layout_marginLeft="20dp"
+            android:layout_gravity="bottom" />
+    </LinearLayout>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -144,8 +99,103 @@
         android:layout_above="@+id/compasso"
         android:layout_centerHorizontal="true" />
 
+    <ImageButton
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:src="@drawable/ic_action_play"
+        android:background="@drawable/floating_button_design"
+        android:id="@+id/floatingButtonPlay"
+        android:onClick="executar"
+        android:layout_below="@+id/compasso"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="39dp" />
 
+    <ImageButton
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:src="@drawable/ic_action_stop"
+        android:background="@drawable/floating_button_design"
+        android:id="@+id/floatingButtonStop"
+        android:onClick="parar"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/compasso"
+        android:layout_alignEnd="@+id/compasso" />
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/radioGroupSomLeft"
+        android:layout_marginLeft="70dp"
+        android:layout_alignTop="@+id/floatingButtonPlay"
+        android:layout_toLeftOf="@+id/floatingButtonPlay"
+        android:orientation="vertical">
 
+        <RadioButton android:id="@+id/bit8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="bit8"
+            android:onClick="setIdBit8"
+            android:buttonTint="@color/metronome_green" />
 
+        <RadioButton
+            android:id="@+id/hihats"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="hihats"
+            android:onClick="setIdHihats"
+            android:buttonTint="@color/metronome_green" />
+
+        <RadioButton android:id="@+id/kick_clap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="kick clap"
+            android:onClick="setIdKickClap"
+            android:buttonTint="@color/metronome_green" />
+        <RadioButton android:id="@+id/beep"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="beep"
+            android:onClick="setIdBeep"
+            android:buttonTint="@color/metronome_green"
+
+            />
+
+    </RadioGroup>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sons"
+        android:gravity="center_horizontal"
+        android:id="@+id/textView3"
+        android:layout_above="@+id/radioGroupSomLeft"
+        android:layout_centerHorizontal="true" />
+
+    <!--<RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/radioGroup2"
+        android:layout_below="@+id/textView3"
+        android:layout_toRightOf="@+id/radioGroupSomLeft"
+        android:layout_toLeftOf="@+id/floatingButtonPlay"
+        android:layout_toStartOf="@+id/floatingButtonPlay">
+
+        <RadioButton android:id="@+id/beep"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="beep"
+
+            android:buttonTint="@color/metronome_green"
+
+            />
+
+        <RadioButton
+            android:id="@+id/rimshot"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="rim shot"
+
+            android:buttonTint="@color/metronome_green"/>
+    </RadioGroup>-->
 
 </RelativeLayout>

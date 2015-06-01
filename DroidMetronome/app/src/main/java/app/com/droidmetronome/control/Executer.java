@@ -1,11 +1,10 @@
 package app.com.droidmetronome.control;
 
-import android.content.Context;
-
 import app.com.droidmetronome.model.Compasso;
 
+
 /**
- * Created by pedro on 12/05/15.
+ * Classe responsável por preparar e executar o metronomo.
  */
 public class Executer {
 
@@ -13,12 +12,11 @@ public class Executer {
 
     /**
      * Pre-execução do metronomo , definindo sons e valores.
-     * @param context
+     * @param conversor - Objeto responsável por armazenar os valores definidos na interface.
+     * @see FrontConversor
      */
-    public void preExecuter(Context context ,Compasso mainCompasso){
-
-        //Definindo configurações do metronomo
-        this.compasso = mainCompasso; // Som a ser tocado (Alto e baixo)
+    public void preExecuter(FrontConversor conversor){
+        this.compasso = conversor.toCompasso();
         //====================================
 
     }
@@ -33,7 +31,7 @@ public class Executer {
     }
 
     /**
-     * Encerra o metronomo
+     * Encerra o metronomo, finalizando todos os sons.
      */
     public void stopExecuter(){
         if(this.compasso != null){

@@ -17,10 +17,10 @@ public class AudioPlayer{
     private int idSom;
 
     /**
-     * Construtor
-     * @param sound
-     * @param somAlto
-     * @param somBaixo
+     * Construtor de AudioPlayer
+     * @param sound - Som definido pelo usuário.
+     * @param somAlto - Identificador do som Alto.
+     * @param somBaixo - Identificador do som Baixo.
      */
     public AudioPlayer(SoundPool sound,int somAlto,int somBaixo){
         this.sound = sound;
@@ -31,11 +31,17 @@ public class AudioPlayer{
     }
 
     /**
-     * Define a quantidade máxima de batidas
-     * @param batidasMaximo
+     * Define a quantidade máxima de batidas. Caso esteja fora do intervalo é definido um valor padrão.
+     * @param batidasMaximo - Quantidade máxima de batidas definido pelo usuário.
      */
     public void setBatidasMaximo(int batidasMaximo) {
-        this.batidasMaximo = batidasMaximo;
+
+        if((batidasMaximo < 1)||(batidasMaximo > 16)) {
+            //Valor padrão caso esteja fora dos limites.
+            this.batidasMaximo = 4;
+        }else{
+            this.batidasMaximo = batidasMaximo;
+        }
     }
 
     /**
@@ -49,18 +55,15 @@ public class AudioPlayer{
     /**
      * Inicia os sons
      */
-    public void play() {
-
-        //Log.d("TIME",String.valueOf(batidasAtual) + "/" + String.valueOf(batidasMaximo));
+    public void play(boolean inLoop){
 
         if(this.batidasAtual < this.batidasMaximo) {
-            idSom = this.sound.play(somAlto,1,1,1,0,1);
-            this.batidasAtual++;
+            idSom = this.sound.play(somAlto, 1, 1, 1, 0, 1);
+            if(!inLoop) this.batidasAtual++;
 
         }else{
             idSom = this.sound.play(somBaixo,1,1,1,0,1);
-            this.batidasAtual = 1;
-
+            if(!inLoop) this.batidasAtual = 1;
         }
     }
 
