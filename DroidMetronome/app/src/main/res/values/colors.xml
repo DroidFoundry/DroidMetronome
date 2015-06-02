@@ -2,6 +2,6 @@
 <resources>
 
     <color name="metronome_green">#8BC34A</color>
-    <color name="metronome_dark_green">#689f38</color>
+    <color name="metronome_dark_green">#7cb342</color>
     <color name="metronome_about_grey">#e0e0e0</color>
 </resources>

@@ -26,13 +26,13 @@
 
         <NumberPicker
             android:id="@+id/timer"
-            android:layout_width="wrap_content"
-            android:layout_height="120dp"
+            android:layout_width="70dp"
+            android:layout_height="95dp"
             android:layout_marginRight="20dp" />
 
         <NumberPicker
-            android:layout_width="wrap_content"
-            android:layout_height="120dp"
+            android:layout_width="70dp"
+            android:layout_height="95dp"
             android:id="@+id/bpm"
             style="@style/Base.V21.Theme.AppCompat.Light"
             android:gravity="top"
@@ -68,7 +68,7 @@
         android:id="@+id/compasso"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:clickable="false"
         android:layout_centerVertical="true"
@@ -76,19 +76,17 @@
         android:layout_alignParentStart="true">
 
         <NumberPicker
-            android:layout_width="wrap_content"
-            android:layout_height="120dp"
+            android:layout_width="70dp"
+            android:layout_height="95dp"
             android:id="@+id/qntBatidas"
 
-            android:layout_marginRight="20dp"
-            android:layout_gravity="bottom" />
+            android:layout_marginRight="20dp" />
 
         <NumberPicker
-            android:layout_width="wrap_content"
-            android:layout_height="120dp"
+            android:layout_width="70dp"
+            android:layout_height="95dp"
             android:id="@+id/valorBase"
-            android:layout_marginLeft="20dp"
-            android:layout_gravity="bottom" />
+            android:layout_marginLeft="20dp" />
     </LinearLayout>
     <TextView
         android:layout_width="wrap_content"
@@ -106,9 +104,9 @@
         android:background="@drawable/floating_button_design"
         android:id="@+id/floatingButtonPlay"
         android:onClick="executar"
-        android:layout_alignTop="@+id/floatingButtonStop"
-        android:layout_toLeftOf="@+id/textCompasso"
-        android:layout_toStartOf="@+id/textCompasso" />
+        android:layout_above="@+id/floatingButtonStop"
+        android:layout_alignLeft="@+id/floatingButtonStop"
+        android:layout_alignStart="@+id/floatingButtonStop" />
 
     <ImageButton
         android:layout_width="70dp"
@@ -117,10 +115,49 @@
         android:background="@drawable/floating_button_design"
         android:id="@+id/floatingButtonStop"
         android:onClick="parar"
-        android:layout_below="@+id/compasso"
-        android:layout_toRightOf="@+id/textCompasso"
-        android:layout_toEndOf="@+id/textCompasso"
-        android:layout_marginTop="42dp" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/radioGroupSomLeft"
+        android:layout_marginLeft="70dp"
+        android:layout_alignTop="@+id/floatingButtonPlay"
+        android:layout_toLeftOf="@+id/floatingButtonPlay"
+        android:orientation="vertical">
+
+        <RadioButton android:id="@+id/bit8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="bit8"
+            android:onClick="setIdBit8"
+            android:buttonTint="@color/metronome_green" />
+
+        <RadioButton
+            android:id="@+id/hihats"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="hihats"
+            android:onClick="setIdHihats"
+            android:buttonTint="@color/metronome_green" />
+
+        <RadioButton android:id="@+id/kick_clap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="kick clap"
+            android:onClick="setIdKickClap"
+            android:buttonTint="@color/metronome_green" />
+        <RadioButton android:id="@+id/beep"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="beep"
+            android:onClick="setIdBeep"
+            android:buttonTint="@color/metronome_green"
+
+            />
+
+    </RadioGroup>
 
 
     <!--<RadioGroup
