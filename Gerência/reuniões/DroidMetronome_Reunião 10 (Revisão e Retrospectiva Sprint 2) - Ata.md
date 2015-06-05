@@ -1,4 +1,4 @@
-Ata da Reunião 10 (Sprint Planning 2)
+Ata da Reunião 10 (Revisão e Retrospectiva - Sprint 2)
 =====================================
 
 Informações iniciais
