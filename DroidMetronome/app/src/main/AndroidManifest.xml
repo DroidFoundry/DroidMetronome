@@ -2,12 +2,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="app.com.droidmetronome" >
 
+    <!-- To access Google+ APIs: -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:screenOrientation="portrait"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/Metronome.Theme" >
         <activity
             android:name=".view.MainActivity"
             android:label="@string/app_name"
@@ -20,10 +23,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:screenOrientation="portrait"
             android:name=".view.ConfiguracoesActivity"
             android:label="@string/title_activity_configuracoes"
-           >
+            android:screenOrientation="portrait" >
         </activity>
     </application>
 

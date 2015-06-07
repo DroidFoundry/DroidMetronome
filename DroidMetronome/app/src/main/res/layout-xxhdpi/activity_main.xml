@@ -1,5 +1,6 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/App.Theme"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -100,66 +101,50 @@
         android:layout_above="@+id/compasso"
         android:layout_centerHorizontal="true" />
 
-    <ImageButton
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:src="@drawable/ic_action_play"
-        android:background="@drawable/floating_button_design"
-        android:id="@+id/floatingButtonPlay"
-        android:onClick="executar"
-        android:layout_below="@+id/compasso"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="39dp" />
 
-    <ImageButton
+    <ToggleButton
+        android:background="@drawable/button_play_background"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:src="@drawable/ic_action_stop"
-        android:background="@drawable/floating_button_design"
-        android:id="@+id/floatingButtonStop"
-        android:onClick="parar"
+        android:checked="true"
+        android:onClick="onToggleClicked"
+        android:id="@+id/floatingButtonPlay"
         android:layout_alignParentBottom="true"
-        android:layout_alignRight="@+id/compasso"
-        android:layout_alignEnd="@+id/compasso" />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
     <RadioGroup
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/radioGroupSomLeft"
-        android:layout_marginLeft="70dp"
-        android:layout_alignTop="@+id/floatingButtonPlay"
-        android:layout_toLeftOf="@+id/floatingButtonPlay"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="60dp">
 
         <RadioButton android:id="@+id/bit8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="bit8"
-            android:onClick="setIdBit8"
-            android:buttonTint="@color/metronome_green" />
+            android:onClick="setIdBit8"/>
 
         <RadioButton
             android:id="@+id/hihats"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="hihats"
-            android:onClick="setIdHihats"
-            android:buttonTint="@color/metronome_green" />
+            android:onClick="setIdHihats" />
 
-        <RadioButton android:id="@+id/kick_clap"
+        <RadioButton
+            android:id="@+id/kick_clap"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="kick clap"
-            android:onClick="setIdKickClap"
-            android:buttonTint="@color/metronome_green" />
-        <RadioButton android:id="@+id/beep"
+            android:onClick="setIdKickClap" />
+        <RadioButton
+            android:id="@+id/beep"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="beep"
-            android:onClick="setIdBeep"
-            android:buttonTint="@color/metronome_green"
-
-            />
+            android:onClick="setIdBeep" />
 
     </RadioGroup>
 

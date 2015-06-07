@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.NumberPicker;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import app.com.droidmetronome.R;
 import app.com.droidmetronome.control.Executer;
@@ -28,6 +29,7 @@ public class MainActivity extends ActionBarActivity {
     private NumberPicker npQntBatidas;
     private NumberPicker npValorBase;
     private NumberPicker npTimer;
+    private ToggleButton buttonPlay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,14 +112,15 @@ public class MainActivity extends ActionBarActivity {
         npValorBase.setMaxValue(32);
         npValorBase.setValue(4);
 
+        buttonPlay = (ToggleButton)findViewById(R.id.floatingButtonPlay);
 
     }
 
     /**
      * Prepara e executa o metronomo.
-     * @param view
+     * @param
      */
-    public void executar(View view){
+    public void executar(){
         if(!inExecution) {
 
             FrontConversor conversor = new FrontConversor();
@@ -125,7 +128,7 @@ public class MainActivity extends ActionBarActivity {
             conversor.setFiguraRitmica(1);
             conversor.setFrequenciaBPM(npBPM.getValue());
             conversor.setQuantidadeBatidas(npQntBatidas.getValue());
-            conversor.createSomById(getIdSom(),this);
+            conversor.createSomById(getIdSom(), this);
 
             executer.preExecuter(conversor); // preparar
             executer.onExecuter(); // executar
@@ -138,12 +141,26 @@ public class MainActivity extends ActionBarActivity {
         }
     }
 
+    public void onToggleClicked(View view) {
+        // Is the toggle on?
+        boolean on = ((ToggleButton) view).isChecked();
+
+        if (on) {
+            parar();
+
+        } else {
+
+            executar();
+        }
+    }
+
     /**
      * Para a execussão do metronomo
-     * @param view
+     * @param
      */
-    public void parar(View view){
+    public void parar(){
         if(inExecution){
+
             executer.stopExecuter();
             inExecution = false;
 

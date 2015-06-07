@@ -39,9 +39,7 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="@string/about"
             android:id="@+id/textView2"
-            android:layout_below="@+id/informacoesTitulo"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            />
     </LinearLayout>
 
 </RelativeLayout>
