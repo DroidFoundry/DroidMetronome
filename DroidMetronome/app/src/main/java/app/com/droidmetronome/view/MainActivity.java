@@ -109,8 +109,8 @@ public class MainActivity extends ActionBarActivity {
         npValorBase = (NumberPicker) findViewById(R.id.valorBase);
         npValorBase.setMinValue(1);
 
-        npValorBase.setMaxValue(32);
-        npValorBase.setValue(4);
+        npValorBase.setMaxValue(6);
+        npValorBase.setValue(1);
 
         buttonPlay = (ToggleButton)findViewById(R.id.floatingButtonPlay);
 
@@ -124,13 +124,18 @@ public class MainActivity extends ActionBarActivity {
         if(!inExecution) {
 
             FrontConversor conversor = new FrontConversor();
+
+            conversor.setVibracao(true);
+            conversor.setFlash(false);
+
             conversor.setTempoMinutos(npTimer.getValue());
-            conversor.setFiguraRitmica(1);
             conversor.setFrequenciaBPM(npBPM.getValue());
             conversor.setQuantidadeBatidas(npQntBatidas.getValue());
-            conversor.createSomById(getIdSom(), this);
 
-            executer.preExecuter(conversor); // preparar
+            conversor.createSomById(getIdSom(),this);
+            conversor.createFiguraRitmicaById(npValorBase.getValue());
+
+            executer.preExecuter(conversor,this); // preparar
             executer.onExecuter(); // executar
 
             inExecution = true;

@@ -1,5 +1,7 @@
 package app.com.droidmetronome.control;
 
+import android.content.Context;
+
 import app.com.droidmetronome.model.Compasso;
 
 
@@ -15,10 +17,9 @@ public class Executer {
      * @param conversor - Objeto responsável por armazenar os valores definidos na interface.
      * @see FrontConversor
      */
-    public void preExecuter(FrontConversor conversor){
-        this.compasso = conversor.toCompasso();
-        //====================================
+    public void preExecuter(FrontConversor conversor, Context context){
 
+        this.compasso = conversor.toCompasso(context);
     }
 
     /**
@@ -26,8 +27,10 @@ public class Executer {
      */
     public void onExecuter(){
 
-        compasso.setPriority(Thread.MIN_PRIORITY);
+        compasso.setPriority(Thread.MAX_PRIORITY);
         compasso.start();
+
+
     }
 
     /**

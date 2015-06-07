@@ -1,27 +1,63 @@
 package app.com.droidmetronome.model;
 
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.hardware.Camera;
+import android.os.Vibrator;
+import android.util.Log;
+
 /**
  * Created by pedro on 12/05/15.
  */
-public class Compasso extends Thread {
+public class Compasso extends Thread{
+
     private long frequenciaBPM;
     private int tempoMinutos;
-    private int figuraRitmica;
-    private boolean stopNow;
 
-    private AudioPlayer som;
+    private int batidasMaximo;
+
+    private boolean stopNow;
+    private boolean isVibrating;
+    private boolean isLighting;
+
+    private TemplateFiguraritmica figuraRitmica;
+    private TemplateSound som;
+
+    private Vibrator vibrate;
+    private Camera camera;
+    private Context context;
+
+    /**
+     * Construtor da classe compasso
+     * @param context - Contexto ao qual o compasso será executado
+     */
+    public Compasso(Context context){
+        this.context = context;
+        this.vibrate = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
+    }
+
+    /**
+     * Permitindo vibração
+     * @param vibrating - Ativado se verdadeiro e desativado se falso
+     */
+    public void setVibrating(boolean vibrating){
+        this.isVibrating = vibrating;
+    }
+
+    /**
+     * Permitindo flash da camera
+     * @param lighting - Ativado se verdadeiro e desativado se falso
+     */
+    public void setLighting(boolean lighting){
+        this.isLighting = lighting;
+    }
 
     /**
      * Define a figura rítmica. Caso esteja fora do intervalo é definido um valor padrão.
      * @param figuraRitmica - Figura rítmica definido pelo usuário.
      */
-    public void setFiguraRitmica(int figuraRitmica){
-        if((figuraRitmica < 1)||(figuraRitmica > 32)){
-            //Valor padrão caso esteja fora dos limites.
-            this.figuraRitmica = 1;
-        }else {
-            this.figuraRitmica = figuraRitmica;
-        }
+    public void setFiguraRitmica(TemplateFiguraritmica figuraRitmica){
+        this.figuraRitmica = figuraRitmica;
     }
 
     /**
@@ -53,9 +89,8 @@ public class Compasso extends Thread {
     /**
      * Define os sons a serem tocados
      * @param som - O som a ser tocado.
-     * @see AudioPlayer
      */
-    public void setSom(AudioPlayer som) {
+    public void setSom(TemplateSound som) {
         this.som = som;
     }
 
@@ -66,9 +101,9 @@ public class Compasso extends Thread {
     public void setQuantidadeBatidas(int batidas) {
         if((batidas < 1)||(batidas > 16)){
             //Valor padrão caso esteja fora dos limites.
-            this.som.setBatidasMaximo(4);
+            this.batidasMaximo = 4;
         }else {
-            this.som.setBatidasMaximo(batidas);
+            this.batidasMaximo = batidas;
         }
     }
 
@@ -87,32 +122,19 @@ public class Compasso extends Thread {
      */
     @Override
     public void run() {
-        double frequenciaSegundos = this.conversorBPM(this.frequenciaBPM);
-        double Delay = 1000 / frequenciaSegundos;
+        double frequenciaSegundos = this.conversorBPM(this.frequenciaBPM); // 2bps
+        double Delay = 1000 / frequenciaSegundos; // 0.5s
 
         int tempoMiliSegundos = (this.tempoMinutos * 60 * 1000); // (60000 milisegundos)
-        int quantidadeCiclo = (int) Math.floor(tempoMiliSegundos / (som.getBatidasMaximo() * Delay));
+        double quantidadeCiclo = tempoMiliSegundos / (this.batidasMaximo * Delay);
 
         this.stopNow = false;
 
         try {
-            int contador = 0;
-            boolean inLoop = false;
 
             // Iniciando ciclo de batidas
-            while (!stopNow) {
+            loopSound(Delay, quantidadeCiclo);
 
-                for(int i=1; i <= figuraRitmica ;i++) {
-
-                    if( i == figuraRitmica){inLoop = false;}
-                    som.play(inLoop);
-                    Thread.sleep((long)Delay/figuraRitmica);
-                }
-                inLoop = true;
-                contador++;
-
-                if(contador >= som.getBatidasMaximo()*quantidadeCiclo) break;
-            }
         } catch (InterruptedException e) {
             e.printStackTrace();
         } finally {
@@ -122,11 +144,118 @@ public class Compasso extends Thread {
     }
 
     /**
+     *
+     * @param delay - Tempo entre as batidas (em milisegundos)
+     * @param quantidadeCiclo - Quantidade de vezes que o loop é executado
+     * @throws InterruptedException
+     */
+
+    private void loopSound(double delay , double quantidadeCiclo) throws InterruptedException{
+
+        double contador = 0;
+        int batidasAtual = 1;
+
+        boolean inTimer;
+
+        if(quantidadeCiclo == 0){
+            inTimer = true;
+        }else{
+           inTimer = contador < this.batidasMaximo * quantidadeCiclo;
+        }
+
+        while ( (!stopNow) && (inTimer) ) {
+
+            // Ativando luz
+            try {
+                activeLighting(isLighting);
+
+                if(batidasAtual < batidasMaximo) {
+
+                    for(int count = 1; count <= figuraRitmica.getValue(); count++){
+
+                    // Modo vibratório
+                    activeVibration(isVibrating, (int) Math.ceil(delay / figuraRitmica.getValue()));
+
+                    som.playSoundAlto();
+
+                    // Esperar
+                    Thread.sleep((long) delay / figuraRitmica.getValue());
+
+                    }
+                    batidasAtual++;
+                }else{
+
+                        // Modo vibratório
+                        activeVibration(isVibrating, (int) Math.ceil(delay / figuraRitmica.getValue()));
+
+                        som.playSoundBaixo();
+
+                        // Esperar
+                        Thread.sleep((long) delay / figuraRitmica.getValue());
+
+                    batidasAtual = 1;
+                }
+
+                // Desativar flash
+                desactiveLighting(isLighting);
+
+            }catch(RuntimeException erro){
+                desactiveLighting(isLighting);
+            }
+
+            contador++;
+        }
+    }
+
+    /**
+     * Executa a vibração durante o compasso
+     * @param vibrating - Verifica se a vibração está permitida
+     * @param delay - duração da vibração
+     */
+    private void activeVibration(boolean vibrating ,long delay){
+        if(vibrating)
+            vibrate.vibrate(delay/10);
+    }
+
+    private boolean flashSuported(){
+        PackageManager pm = context.getPackageManager();
+
+        boolean flash = pm.hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH);
+        boolean camera = pm.hasSystemFeature(PackageManager.FEATURE_CAMERA);
+        return(flash && camera);
+    }
+
+    private void activeLighting(boolean lighting){
+        if((lighting) && (flashSuported())){
+
+            if(camera == null) {
+
+                camera = Camera.open();
+                Camera.Parameters parameters = camera.getParameters();
+
+                parameters.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
+                camera.setParameters(parameters);
+                camera.startPreview();
+            }
+        }
+    }
+
+    private void desactiveLighting(boolean lighting){
+        if((lighting) && (flashSuported())){
+
+            if(camera != null) {
+                camera.release();
+                camera = null;
+            }
+        }
+    }
+
+    /**
      * Para o metronomo e encerra a Thread
-     * @see AudioPlayer
      */
     public void stopMetronomo() {
         this.stopNow = true;
-        som.stop();
+        desactiveLighting(isLighting);
+        som.stopSound();
     }
 }

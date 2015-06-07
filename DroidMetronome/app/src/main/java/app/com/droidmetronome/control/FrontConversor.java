@@ -5,23 +5,39 @@ package app.com.droidmetronome.control;
  */
 
 import android.content.Context;
-import android.media.AudioManager;
-import android.media.SoundPool;
 
-import app.com.droidmetronome.R;
-import app.com.droidmetronome.model.AudioPlayer;
 import app.com.droidmetronome.model.Compasso;
+import app.com.droidmetronome.model.Figura_Colcheia;
+import app.com.droidmetronome.model.Figura_Fusa;
+import app.com.droidmetronome.model.Figura_Minima;
+import app.com.droidmetronome.model.Figura_SemiBreve;
+import app.com.droidmetronome.model.Figura_SemiColcheia;
+import app.com.droidmetronome.model.Figura_SemiFusa;
+import app.com.droidmetronome.model.Figura_SemiMinima;
+import app.com.droidmetronome.model.Sound_8Bits;
+import app.com.droidmetronome.model.Sound_beep;
+import app.com.droidmetronome.model.Sound_hiHats;
+import app.com.droidmetronome.model.Sound_kickClap;
+import app.com.droidmetronome.model.Sound_rimShot;
+import app.com.droidmetronome.model.TemplateFiguraritmica;
+import app.com.droidmetronome.model.TemplateSound;
 
 
 /**
  * Classe responsável por ligar o front-end ao back-end
  */
 public class FrontConversor {
-    private AudioPlayer som;
+
+    private TemplateSound sound;
+
     private long frequenciaBPM;
     private int quantidadeBatidas;
-    private int figuraRitmica;
     private int tempoMinutos;
+
+    private boolean vibracao;
+    private boolean flash;
+
+    private TemplateFiguraritmica figuraRitmica;
 
     /**
      * Define o som do metrônomo com base no definido pelo usuário.
@@ -29,43 +45,97 @@ public class FrontConversor {
      * @param context - Contexto aonde o som será exibido.
      */
     public void createSomById(int idTipoSom,Context context) {
-        SoundPool sound = new SoundPool(10, AudioManager.STREAM_MUSIC,0);
-        int id_Alto = sound.load(context, R.raw.rim_shot_01,1);
-        int id_Baixo = sound.load(context,R.raw.rim_shot_02,1);
 
         switch(idTipoSom){
-            //Som 1
+            //Som 1:
             case 1:
-                id_Alto = sound.load(context,R.raw.bit8_02,1);
-                id_Baixo = sound.load(context,R.raw.bit8_01,1);
+                sound = new Sound_8Bits(context);
                 break;
 
-            //Som 2
+            //Som 2:
             case 2:
-                id_Alto = sound.load(context,R.raw.hihats_02,1);
-                id_Baixo = sound.load(context,R.raw.hihats_01,1);
+                sound = new Sound_hiHats(context);
                 break;
 
             //Som 3:
             case 3:
-                id_Alto = sound.load(context,R.raw.kick_clap_02,1);
-                id_Baixo = sound.load(context,R.raw.kick_clap_01,1);
+                sound = new Sound_kickClap(context);
+                break;
+
+            //Som 4:
+            case 4:
+                sound = new Sound_rimShot(context);
+                break;
+
+            //Som 5:
+            case 5:
+                sound = new Sound_beep(context);
+                break;
+
+            //Som padrão
+            default:
+                sound = new Sound_8Bits(context);
+
+        }
+    }
+
+    /**
+     * Define a figura rítmica definido pelo usuário.
+     * @param idFiguraRitmica - Id para escolha da figura ritmica (caso não exista é atribuido um valor padrão).
+     */
+    public void createFiguraRitmicaById(int idFiguraRitmica) {
+
+        switch(idFiguraRitmica){
+
+            case 1:
+                figuraRitmica = new Figura_SemiBreve();
+                break;
+
+            case 2:
+                figuraRitmica = new Figura_Minima();
+                break;
+
+            case 3:
+                figuraRitmica = new Figura_SemiMinima();
                 break;
 
             case 4:
-                id_Alto = sound.load(context,R.raw.rim_shot_02,1);
-                id_Baixo = sound.load(context,R.raw.rim_shot_01,1);
+                figuraRitmica = new Figura_Colcheia();
                 break;
+
             case 5:
-                id_Alto = sound.load(context,R.raw.beep_2,1);
-                id_Baixo = sound.load(context,R.raw.beep_1,1);
+                figuraRitmica = new Figura_SemiColcheia();
                 break;
+
+            case 6:
+                figuraRitmica = new Figura_Fusa();
+                break;
+
+            case 7:
+                figuraRitmica = new Figura_SemiFusa();
+                break;
+
             //Som padrão
             default:
+                figuraRitmica = new Figura_SemiBreve();
 
         }
+    }
 
-        this.som = new AudioPlayer(sound,id_Alto,id_Baixo);
+    /**
+     * Permição de vibrar durante a execução
+     * @param vibracao - Ativado se verdadeiro ,desativado se falso
+     */
+    public void setVibracao(boolean vibracao) {
+        this.vibracao = vibracao;
+    }
+
+    /**
+     * Permição de ativar o flash durante a execução
+     * @param flash - Ativado se verdadeiro ,desativado se falso
+     */
+    public void setFlash(boolean flash) {
+        this.flash = flash;
     }
 
     /**
@@ -108,33 +178,24 @@ public class FrontConversor {
     }
 
     /**
-     * Define a figura rítmica. Caso esteja fora do intervalo é definido um valor padrão.
-     * @param figuraRitmica - Figura rítmica definido pelo usuário.
-     */
-    public void setFiguraRitmica(int figuraRitmica){
-        if((figuraRitmica < 1)||(figuraRitmica > 32)){
-            //Valor padrão caso esteja fora dos limites.
-            this.figuraRitmica = 1;
-        }else {
-            this.figuraRitmica = figuraRitmica;
-        }
-    }
-
-    /**
      * Converte todos os valores obtidos na U.I em um objeto da classe compasso.
      * @return Compasso com os valores definidos anteriormente.
      * @see Compasso
      */
-    public Compasso toCompasso(){
+    public Compasso toCompasso(Context context){
 
-        Compasso compasso = new Compasso();
+        Compasso compasso = new Compasso(context);
+
+        compasso.setVibrating(this.vibracao);
+        compasso.setLighting(this.flash);
+
         compasso.setFrequenciaBPM(this.frequenciaBPM);
         compasso.setFiguraRitmica(this.figuraRitmica);
-        compasso.setSom(this.som);
         compasso.setQuantidadeBatidas(this.quantidadeBatidas);
         compasso.setTempoMinutos(this.tempoMinutos);
 
+        compasso.setSom(this.sound);
+
         return(compasso);
     }
-    //startActivity(new Intent(this, ConfiguracoesActivity.class));
 }
