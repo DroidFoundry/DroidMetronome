@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
+    android:animateLayoutChanges="true"
 
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
@@ -180,14 +181,6 @@
         android:layout_toLeftOf="@+id/floatingButtonPlay"
         android:layout_toStartOf="@+id/floatingButtonPlay">
 
-        <RadioButton android:id="@+id/beep"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="beep"
-
-            android:buttonTint="@color/metronome_green"
-
-            />
 
         <RadioButton
             android:id="@+id/rimshot"

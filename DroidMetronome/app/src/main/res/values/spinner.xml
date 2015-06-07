@@ -1,0 +1,9 @@
+<resources>
+    <string-array name="sons_array">
+        <item>bit8</item>
+        <item>hihats</item>
+        <item>klick clap</item>
+        <item>beep</item>
+        <item>rim shot</item>
+    </string-array>
+</resources>
