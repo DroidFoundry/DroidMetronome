@@ -5,6 +5,7 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
+import android.widget.ZoomButtonsController;
 
 import app.com.droidmetronome.R;
 
@@ -16,6 +17,7 @@ public class ConfiguracoesActivity extends ActionBarActivity implements Preferen
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_configuracoes);
+        ZoomButtonsController
 
         // For all preferences, attach an OnPreferenceChangeListener so the UI summary can be
         // updated when the preference changes.
