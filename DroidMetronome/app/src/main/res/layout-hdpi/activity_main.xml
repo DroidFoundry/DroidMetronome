@@ -7,6 +7,7 @@
     android:orientation="vertical"
     android:gravity="center"
     android:animateLayoutChanges="true"
+
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
@@ -111,7 +112,7 @@
 
     <RadioGroup
 
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/radioGroupSomLeft"
         android:orientation="vertical"
@@ -149,5 +150,13 @@
 
     </RadioGroup>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sons"
+        android:gravity="center_horizontal"
+        android:id="@+id/textView3"
+        android:layout_above="@+id/radioGroupSomLeft"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

@@ -96,23 +96,12 @@
     </item>
 
     <item >
+        <shape android:shape="oval">
 
-        <ripple xmlns:android="http://schemas.android.com/apk/res/android"
-            android:color="?android:colorControlHighlight">
-            <item android:id="@android:id/mask">
-                <shape android:shape="oval">
-                    <solid android:color="@color/metronome_about_grey" />
-                </shape>
-            </item>
-            <item>
-                <shape android:shape="oval">
-
-                    <solid android:color="@color/metronome_green" />
+            <solid android:color="@color/metronome_green" />
 
 
-                </shape>
-            </item>
-        </ripple>
+        </shape>
 
     </item>
 

@@ -15,7 +15,6 @@
     <style name="ActionBar.Metronome.Style" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
 
         <item name="displayOptions">useLogo|showHome</item>
-        <item name="android:logo">@drawable/ic_launcher</item>
     </style>
 
     <!-- Tema do botão play-->
