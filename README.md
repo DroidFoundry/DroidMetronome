@@ -25,12 +25,14 @@ Instalação
 Autores
 -------
  * Gabriela Aimée Guimarães - <gabrielaimeeg@hotmail.com>
+ * Gleibson Wemerson Silva Borges - <gleibsongyn@gmail.com>
  * Gustavo Moraes dos Santos - <gustavo_moraiss@hotmail.com>
  * Hiago Augusto Koziel Rahmig - <hiagokoziel100@gmail.com>
+ * Julianny Alves da Silva - <julianny.alves@hotmail.com>
  * Paulo de Oliveira Neto - <pauloesgyn@gmail.com>
  * Pedro Henrique Silva Farias - <pedrohenriquedrim@gmail.com>
  * Renan Ofugi Mikami - <renangyn2010@hotmail.com>
- * Julianny Alves da Silva - <julianny.alves@hotmail.com>
+ 
 
 *Quick Start*
 -------------
