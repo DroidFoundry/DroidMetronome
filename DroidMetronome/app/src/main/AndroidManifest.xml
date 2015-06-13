@@ -4,34 +4,44 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
-    
+
     <permission android:name="android.permission.FLASHLIGHT"
     
         android:permissionGroup="android.permission-group.HARDWARE_CONTROLS"
         android:protectionLevel="normal" />
 
     <application
+
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:screenOrientation="portrait"
         android:theme="@style/Metronome.Theme" >
+
         <activity
             android:name=".view.MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/Metronome.Main.Theme" >
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
+
+        <service
+            android:enabled="true"
+            android:name=".control.Compasso" />
+
         <activity
             android:name=".view.ConfiguracoesActivity"
             android:label="@string/title_activity_configuracoes"
             android:screenOrientation="portrait" >
         </activity>
+
     </application>
 
 </manifest>

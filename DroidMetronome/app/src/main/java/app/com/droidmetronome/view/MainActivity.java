@@ -7,17 +7,18 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.NumberPicker;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import app.com.droidmetronome.R;
-import app.com.droidmetronome.control.Executer;
-import app.com.droidmetronome.control.FrontConversor;
+import app.com.droidmetronome.control.SoundTimeLoop;
+import app.com.droidmetronome.model.FrontConversor;
+import app.com.droidmetronome.control.Compasso;
 
 
 public class MainActivity extends ActionBarActivity {
-    private Executer executer;
+
     private boolean inExecution;
+
     private int idSom = 1;
     private int idBit8 = 1;
     private int idHihats = 2;
@@ -38,7 +39,6 @@ public class MainActivity extends ActionBarActivity {
 
         this.mountInterface();
 
-        executer =  new Executer();
         inExecution = false;
     }
 
@@ -116,63 +116,34 @@ public class MainActivity extends ActionBarActivity {
 
     }
 
-    /**
-     * Prepara e executa o metronomo.
-     * @param
-     */
-    public void executar(){
-        if(!inExecution) {
-
-            FrontConversor conversor = new FrontConversor();
-
-            conversor.setVibracao(true);
-            conversor.setFlash(false);
-
-            conversor.setTempoMinutos(npTimer.getValue());
-            conversor.setFrequenciaBPM(npBPM.getValue());
-            conversor.setQuantidadeBatidas(npQntBatidas.getValue());
-
-            conversor.createSomById(getIdSom(),this);
-            conversor.createFiguraRitmicaById(npValorBase.getValue());
-
-            executer.preExecuter(conversor,this); // preparar
-            executer.onExecuter(); // executar
-
-            inExecution = true;
-
-        }else{
-            Toast mensagem = Toast.makeText(this, "Metronomo em execução.", Toast.LENGTH_SHORT);
-            mensagem.show();
-        }
-    }
-
     public void onToggleClicked(View view) {
         // Is the toggle on?
         boolean on = ((ToggleButton) view).isChecked();
 
         if (on) {
-            parar();
-
+            stopService(new Intent(this, Compasso.class)); // encerrar service executar
         } else {
-
             executar();
         }
     }
 
     /**
-     * Para a execussão do metronomo
+     * Prepara e executa o metronomo.
      * @param
      */
-    public void parar(){
-        if(inExecution){
+    public void executar(){
 
-            executer.stopExecuter();
-            inExecution = false;
+            FrontConversor.getInstance().setVibracao(true);
+            FrontConversor.getInstance().setFlash(false);
 
-        }else {
-            Toast mensagem = Toast.makeText(this, "Todos os sons foram encerrados.", Toast.LENGTH_SHORT);
-            mensagem.show();
-        }
+            FrontConversor.getInstance().setTempoMinutos(npTimer.getValue());
+            FrontConversor.getInstance().setFrequenciaBPM(npBPM.getValue());
+            FrontConversor.getInstance().setQuantidadeBatidas(npQntBatidas.getValue());
+
+            FrontConversor.getInstance().createSomById(getIdSom(), this);
+            FrontConversor.getInstance().createFiguraRitmicaById(npValorBase.getValue());
+
+            startService(new Intent(this,Compasso.class)); // executar
     }
 
     @Override
@@ -201,7 +172,7 @@ public class MainActivity extends ActionBarActivity {
     @Override
     protected void onDestroy() {
         if(inExecution){
-            executer.stopExecuter();
+            stopService(new Intent(this, Compasso.class)); // encerrar service executar
             inExecution = false;
 
         }

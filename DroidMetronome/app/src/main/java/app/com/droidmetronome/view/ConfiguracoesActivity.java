@@ -17,7 +17,6 @@ public class ConfiguracoesActivity extends ActionBarActivity implements Preferen
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_configuracoes);
-        ZoomButtonsController
 
         // For all preferences, attach an OnPreferenceChangeListener so the UI summary can be
         // updated when the preference changes.

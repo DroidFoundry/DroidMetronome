@@ -1,4 +1,4 @@
-package app.com.droidmetronome.control;
+package app.com.droidmetronome.model;
 
 /**
  * Created by pedro on 16/05/15.
@@ -6,28 +6,13 @@ package app.com.droidmetronome.control;
 
 import android.content.Context;
 
-import app.com.droidmetronome.model.Compasso;
-import app.com.droidmetronome.model.Figura_Colcheia;
-import app.com.droidmetronome.model.Figura_Fusa;
-import app.com.droidmetronome.model.Figura_Minima;
-import app.com.droidmetronome.model.Figura_SemiBreve;
-import app.com.droidmetronome.model.Figura_SemiColcheia;
-import app.com.droidmetronome.model.Figura_SemiFusa;
-import app.com.droidmetronome.model.Figura_SemiMinima;
-import app.com.droidmetronome.model.Sound_8Bits;
-import app.com.droidmetronome.model.Sound_beep;
-import app.com.droidmetronome.model.Sound_hiHats;
-import app.com.droidmetronome.model.Sound_kickClap;
-import app.com.droidmetronome.model.Sound_rimShot;
-import app.com.droidmetronome.model.TemplateFiguraritmica;
-import app.com.droidmetronome.model.TemplateSound;
-
 
 /**
  * Classe responsável por ligar o front-end ao back-end
  */
 public class FrontConversor {
 
+    private static FrontConversor instance;
     private TemplateSound sound;
 
     private long frequenciaBPM;
@@ -37,7 +22,24 @@ public class FrontConversor {
     private boolean vibracao;
     private boolean flash;
 
-    private TemplateFiguraritmica figuraRitmica;
+    private FiguraRitmica figuraRitmica;
+
+    /**
+     * Retorna a instancia interna do objeto
+     * @return
+     */
+    public synchronized static FrontConversor getInstance(){
+        if(instance == null){
+            instance = new FrontConversor();
+        }
+
+        return(instance);
+    }
+
+    /**
+     * Construtor privado do padrão singleton
+     */
+    private FrontConversor(){}
 
     /**
      * Define o som do metrônomo com base no definido pelo usuário.
@@ -88,36 +90,36 @@ public class FrontConversor {
         switch(idFiguraRitmica){
 
             case 1:
-                figuraRitmica = new Figura_SemiBreve();
+                figuraRitmica = FiguraRitmica.SemiBreve;
                 break;
 
             case 2:
-                figuraRitmica = new Figura_Minima();
+                figuraRitmica = FiguraRitmica.Minima;
                 break;
 
             case 3:
-                figuraRitmica = new Figura_SemiMinima();
+                figuraRitmica = FiguraRitmica.SemiMinima;
                 break;
 
             case 4:
-                figuraRitmica = new Figura_Colcheia();
+                figuraRitmica = FiguraRitmica.Colcheia;
                 break;
 
             case 5:
-                figuraRitmica = new Figura_SemiColcheia();
+                figuraRitmica = FiguraRitmica.SemiColcheia;
                 break;
 
             case 6:
-                figuraRitmica = new Figura_Fusa();
+                figuraRitmica = FiguraRitmica.Fusa;
                 break;
 
             case 7:
-                figuraRitmica = new Figura_SemiFusa();
+                figuraRitmica = FiguraRitmica.SemiFusa;
                 break;
 
             //Som padrão
             default:
-                figuraRitmica = new Figura_SemiBreve();
+                figuraRitmica = FiguraRitmica.SemiBreve;
 
         }
     }
@@ -178,24 +180,58 @@ public class FrontConversor {
     }
 
     /**
-     * Converte todos os valores obtidos na U.I em um objeto da classe compasso.
-     * @return Compasso com os valores definidos anteriormente.
-     * @see Compasso
+     * Retorna o som selecionado
+     * @return
      */
-    public Compasso toCompasso(Context context){
+    public TemplateSound getSound() {
+        return sound;
+    }
 
-        Compasso compasso = new Compasso(context);
+    /**
+     * Retorna a frequencia selecionada
+     * @return
+     */
+    public long getFrequenciaBPM() {
+        return frequenciaBPM;
+    }
 
-        compasso.setVibrating(this.vibracao);
-        compasso.setLighting(this.flash);
+    /**
+     * Retorna a quantidade de batidas selecionada
+     * @return
+     */
+    public int getQuantidadeBatidas() {
+        return quantidadeBatidas;
+    }
 
-        compasso.setFrequenciaBPM(this.frequenciaBPM);
-        compasso.setFiguraRitmica(this.figuraRitmica);
-        compasso.setQuantidadeBatidas(this.quantidadeBatidas);
-        compasso.setTempoMinutos(this.tempoMinutos);
+    /**
+     * retorna o tempo em minutos selecionado
+     * @return
+     */
+    public int getTempoMinutos() {
+        return tempoMinutos;
+    }
 
-        compasso.setSom(this.sound);
+    /**
+     * Modo vibratorio ativo?
+     * @return
+     */
+    public boolean isVibracao() {
+        return vibracao;
+    }
 
-        return(compasso);
+    /**
+     * Modo luminoso ativo?
+     * @return
+     */
+    public boolean isFlash() {
+        return flash;
+    }
+
+    /**
+     * Retorna a figura rítmica selecionada
+     * @return
+     */
+    public FiguraRitmica getFiguraRitmica() {
+        return figuraRitmica;
     }
 }
