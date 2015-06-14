@@ -12,7 +12,7 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
     public ApplicationTest() {
         super(Application.class);
 
-        testCase1bpm();
+        /*testCase1bpm();
         testCase2bpm();
         testCase3bpm();
         testCase4bpm();
@@ -23,11 +23,11 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
         testCase3beat();
         testCase4beat();
         testCase5beat();
-        testCase6beat();
+        testCase6beat();*/
     }
     public Compasso compasso = new Compasso();
 
-    public void testCase1bpm(){
+   /* public void testCase1bpm(){
         int bpm = 9;
        compasso.setFrequenciaBPM(bpm);
 
@@ -77,5 +77,5 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
     public void testCase6beat(){
         int beat = 17;
         compasso.setQuantidadeBatidas(beat);
-    }
+    }*/
 }

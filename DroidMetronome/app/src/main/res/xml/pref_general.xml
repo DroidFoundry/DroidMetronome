@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <SwitchPreference
+        android:key="@string/pref_vibracao_key"
+        android:title="@string/pref_vibracao_title"
+        android:defaultValue="@string/pref_vibracao_default"
+
+        />
+    <SwitchPreference
+        android:key="@string/pref_flash_key"
+        android:title="@string/pref_flash_title"
+        android:defaultValue="@string/pref_flash_default"
+
+        />
+
+    <Preference
+        android:layout="@layout/pref_layout_informacoes"
+        android:selectable="false"
+        />
+</PreferenceScreen>

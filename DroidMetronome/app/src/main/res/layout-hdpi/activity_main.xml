@@ -99,16 +99,17 @@
         android:layout_above="@+id/compasso"
         android:layout_centerHorizontal="true" />
 
-    <ToggleButton
-        android:background="@drawable/button_play_background"
+    <FloatingActionButton
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:checked="true"
+        android:clickable="true"
         android:onClick="onToggleClicked"
         android:id="@+id/floatingButtonPlay"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        style="@style/Widget.Design.FloatingActionButton"/>
 
     <RadioGroup
 
@@ -116,8 +117,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/radioGroupSomLeft"
         android:orientation="vertical"
-        android:layout_marginRight="38dp"
-        android:layout_marginEnd="38dp"
+        android:layout_marginLeft="60dp"
+
         android:layout_alignBottom="@+id/floatingButtonPlay"
         android:layout_alignRight="@+id/textCompasso"
         android:layout_alignEnd="@+id/textCompasso">

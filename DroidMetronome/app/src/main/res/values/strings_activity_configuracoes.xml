@@ -4,17 +4,6 @@
     <!-- Strings related to Settings -->
 
     <!-- Example General settings -->
-    <string name="title_about">Informações</string>
-    <string name="about">DroidMetronome é um projeto
-        de aplicativo para Android que simula
-        as funções de um metrônomo digital,
-        tanto para auxiliar no estudo musical quanto
-        para acompanhar as interpretações musicais.
-        Com o aplicativo, você liga/desliga o som
-        das batidas, bem como mudar o compasso,
-        aumentar e diminuir a velocidade do compasso
-        (BPM) e selecionar o tipo de som da batida
-        do compasso.</string>
 
     <string name="pref_title_add_friends_to_messages">Teste: Add friends to messages</string>
     <string-array name="pref_example_list_titles">

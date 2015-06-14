@@ -13,7 +13,6 @@
 
     <!-- Tema da action bar-->
     <style name="ActionBar.Metronome.Style" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
-
         <item name="displayOptions">useLogo|showHome</item>
     </style>
 

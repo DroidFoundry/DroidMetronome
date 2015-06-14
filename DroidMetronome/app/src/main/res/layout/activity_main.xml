@@ -1,5 +1,6 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
     style="@style/Metronome.Theme"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -107,16 +108,19 @@
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:checked="true"
+        android:clickable="true"
         android:onClick="onToggleClicked"
         android:id="@+id/floatingButtonPlay"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        style="@style/Widget.Design.FloatingActionButton" />
     <RadioGroup
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/radioGroupSomLeft"
         android:orientation="vertical"
+        android:layout_marginLeft="60dp"
         android:layout_alignBottom="@+id/floatingButtonPlay"
         android:layout_toLeftOf="@+id/floatingButtonPlay"
         android:layout_toStartOf="@+id/floatingButtonPlay">

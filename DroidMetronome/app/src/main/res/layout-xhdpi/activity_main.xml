@@ -104,6 +104,7 @@
         android:layout_width="70dp"
         android:layout_height="70dp"
         android:checked="true"
+        android:clickable="true"
         android:onClick="onToggleClicked"
         android:id="@+id/floatingButtonPlay"
         android:layout_alignParentBottom="true"
@@ -119,7 +120,7 @@
         android:layout_alignParentStart="true"
         android:layout_toLeftOf="@+id/floatingButtonPlay"
         android:layout_toStartOf="@+id/floatingButtonPlay"
-        android:layout_marginLeft="60dp">
+        android:layout_marginLeft="75dp">
 
         <RadioButton android:id="@+id/bit8"
             android:layout_width="wrap_content"
