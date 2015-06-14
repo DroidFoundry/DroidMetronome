@@ -99,9 +99,10 @@
         android:layout_above="@+id/compasso"
         android:layout_centerHorizontal="true" />
 
-    <FloatingActionButton
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+    <ToggleButton
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:background="@drawable/button_play_background"
         android:checked="true"
         android:clickable="true"
         android:onClick="onToggleClicked"

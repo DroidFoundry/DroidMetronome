@@ -1,10 +1,18 @@
-package app.com.droidmetronome.model;
+package app.com.droidmetronome.control;
 
 /**
  * Created by pedro on 16/05/15.
  */
 
 import android.content.Context;
+
+import app.com.droidmetronome.model.FiguraRitmica;
+import app.com.droidmetronome.model.Sound_8Bits;
+import app.com.droidmetronome.model.Sound_beep;
+import app.com.droidmetronome.model.Sound_hiHats;
+import app.com.droidmetronome.model.Sound_kickClap;
+import app.com.droidmetronome.model.Sound_rimShot;
+import app.com.droidmetronome.model.TemplateSound;
 
 
 /**

@@ -101,8 +101,8 @@
 
     <ToggleButton
         android:background="@drawable/button_play_background"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
         android:checked="true"
         android:clickable="true"
         android:onClick="onToggleClicked"

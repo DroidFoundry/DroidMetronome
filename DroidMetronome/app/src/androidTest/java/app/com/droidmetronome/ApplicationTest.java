@@ -3,7 +3,7 @@ package app.com.droidmetronome;
 import android.app.Application;
 import android.test.ApplicationTestCase;
 
-import app.com.droidmetronome.control.Compasso;
+import app.com.droidmetronome.model.Compasso;
 
 /**
  * <a href="http://d.android.com/tools/testing/testing_android.html">Testing Fundamentals</a>

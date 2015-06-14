@@ -8,7 +8,6 @@ import android.os.Looper;
 import android.os.Vibrator;
 
 import app.com.droidmetronome.model.FiguraRitmica;
-import app.com.droidmetronome.model.FrontConversor;
 import app.com.droidmetronome.model.TemplateSound;
 
 /**

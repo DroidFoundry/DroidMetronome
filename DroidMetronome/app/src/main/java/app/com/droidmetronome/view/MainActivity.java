@@ -1,7 +1,9 @@
 package app.com.droidmetronome.view;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -10,9 +12,8 @@ import android.widget.NumberPicker;
 import android.widget.ToggleButton;
 
 import app.com.droidmetronome.R;
-import app.com.droidmetronome.control.SoundTimeLoop;
-import app.com.droidmetronome.model.FrontConversor;
-import app.com.droidmetronome.control.Compasso;
+import app.com.droidmetronome.control.FrontConversor;
+import app.com.droidmetronome.model.Compasso;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -132,18 +133,24 @@ public class MainActivity extends ActionBarActivity {
      * @param
      */
     public void executar(){
+        SharedPreferences sharedPrefs =
+                PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
+        Boolean vibracao = sharedPrefs.getBoolean(
+                getString(R.string.pref_vibracao_key), Boolean.parseBoolean(getString(R.string.pref_vibracao_default)));
+        Boolean flash = sharedPrefs.getBoolean(
+                getString(R.string.pref_flash_key), Boolean.parseBoolean(getString(R.string.pref_flash_default)));
 
-            FrontConversor.getInstance().setVibracao(true);
-            FrontConversor.getInstance().setFlash(false);
+        FrontConversor.getInstance().setVibracao(vibracao);
+        FrontConversor.getInstance().setFlash(flash);
 
-            FrontConversor.getInstance().setTempoMinutos(npTimer.getValue());
-            FrontConversor.getInstance().setFrequenciaBPM(npBPM.getValue());
-            FrontConversor.getInstance().setQuantidadeBatidas(npQntBatidas.getValue());
+        FrontConversor.getInstance().setTempoMinutos(npTimer.getValue());
+        FrontConversor.getInstance().setFrequenciaBPM(npBPM.getValue());
+        FrontConversor.getInstance().setQuantidadeBatidas(npQntBatidas.getValue());
 
-            FrontConversor.getInstance().createSomById(getIdSom(), this);
-            FrontConversor.getInstance().createFiguraRitmicaById(npValorBase.getValue());
+        FrontConversor.getInstance().createSomById(getIdSom(), this);
+        FrontConversor.getInstance().createFiguraRitmicaById(npValorBase.getValue());
 
-            startService(new Intent(this,Compasso.class)); // executar
+        startService(new Intent(this,Compasso.class)); // executar
     }
 
     @Override

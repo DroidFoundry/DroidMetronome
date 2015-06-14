@@ -1,12 +1,11 @@
-package app.com.droidmetronome.control;
+package app.com.droidmetronome.model;
 
 import android.app.IntentService;
 import android.content.Intent;
 import android.os.Looper;
-import android.util.Log;
 
-import app.com.droidmetronome.model.FrontConversor;
-import app.com.droidmetronome.model.FiguraRitmica;
+import app.com.droidmetronome.control.FrontConversor;
+import app.com.droidmetronome.control.SoundTimeLoop;
 
 /**
  * Created by pedro on 12/05/15.
