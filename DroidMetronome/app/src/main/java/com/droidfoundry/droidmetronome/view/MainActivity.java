@@ -1,4 +1,4 @@
-package app.com.droidmetronome.view;
+package com.droidfoundry.droidmetronome.view;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -11,9 +11,9 @@ import android.view.View;
 import android.widget.NumberPicker;
 import android.widget.ToggleButton;
 
-import app.com.droidmetronome.R;
-import app.com.droidmetronome.control.FrontConversor;
-import app.com.droidmetronome.model.Compasso;
+import com.droidfoundry.droidmetronome.R;
+import com.droidfoundry.droidmetronome.control.FrontConversor;
+import com.droidfoundry.droidmetronome.model.Compasso;
 
 
 public class MainActivity extends ActionBarActivity {

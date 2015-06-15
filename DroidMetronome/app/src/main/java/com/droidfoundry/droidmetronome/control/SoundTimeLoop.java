@@ -1,4 +1,4 @@
-package app.com.droidmetronome.control;
+package com.droidfoundry.droidmetronome.control;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -7,8 +7,8 @@ import android.os.CountDownTimer;
 import android.os.Looper;
 import android.os.Vibrator;
 
-import app.com.droidmetronome.model.FiguraRitmica;
-import app.com.droidmetronome.model.TemplateSound;
+import com.droidfoundry.droidmetronome.model.FiguraRitmica;
+import com.droidfoundry.droidmetronome.model.TemplateSound;
 
 /**
  * Created by pedro on 12/05/15.

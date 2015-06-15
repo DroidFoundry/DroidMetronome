@@ -1,15 +1,15 @@
-package app.com.droidmetronome.model;
+package com.droidfoundry.droidmetronome.model;
 
 import android.content.Context;
 import android.media.AudioManager;
 import android.media.SoundPool;
 
-import app.com.droidmetronome.R;
+import com.droidfoundry.droidmetronome.R;
 
 /**
  * Created by pedro on 03/06/15.
  */
-public class Sound_beep implements TemplateSound{
+public class Sound_hiHats implements TemplateSound{
 
     private int somAlto;
     private int somBaixo;
@@ -19,10 +19,10 @@ public class Sound_beep implements TemplateSound{
 
     private boolean readyAlto = false;
 
-    public Sound_beep(Context context){
+    public Sound_hiHats(Context context){
         this.sound = new SoundPool(10, AudioManager.STREAM_MUSIC,0);
 
-        this.somAlto = sound.load(context, R.raw.beep_2,1);
+        this.somAlto = sound.load(context, R.raw.hihats_02,1);
         sound.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener(){
 
             public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
@@ -30,7 +30,7 @@ public class Sound_beep implements TemplateSound{
             }
         });
 
-        this.somBaixo = sound.load(context,R.raw.beep_1,1);
+        this.somBaixo = sound.load(context,R.raw.hihats_01,1);
 
     }
 

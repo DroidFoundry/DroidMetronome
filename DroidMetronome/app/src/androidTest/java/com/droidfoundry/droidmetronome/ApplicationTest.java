@@ -1,9 +1,9 @@
-package app.com.droidmetronome;
+package com.droidfoundry.droidmetronome;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;
 
-import app.com.droidmetronome.model.Compasso;
+import com.droidfoundry.droidmetronome.model.Compasso;
 
 /**
  * <a href="http://d.android.com/tools/testing/testing_android.html">Testing Fundamentals</a>

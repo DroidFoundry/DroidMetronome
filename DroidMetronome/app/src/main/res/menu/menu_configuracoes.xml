@@ -1,6 +1,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="app.com.droidmetronome.view.ConfiguracoesActivity">
+    tools:context="com.droidfoundry.droidmetronome.view.ConfiguracoesActivity">
 
 </menu>

@@ -1,4 +1,4 @@
-package app.com.droidmetronome.view;
+package com.droidfoundry.droidmetronome.view;
 
 import android.os.Bundle;
 import android.preference.ListPreference;
@@ -7,7 +7,7 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.widget.Toast;
 
-import app.com.droidmetronome.R;
+import com.droidfoundry.droidmetronome.R;
 
 
 public class ConfiguracoesActivity extends PreferenceActivity implements Preference.OnPreferenceChangeListener{

@@ -5,7 +5,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:orientation="vertical"
-    tools:context="app.com.droidmetronome.view.ConfiguracoesActivity"
+    tools:context="com.droidfoundry.droidmetronome.view.ConfiguracoesActivity"
     android:id="@+id/action_settings">
 
 

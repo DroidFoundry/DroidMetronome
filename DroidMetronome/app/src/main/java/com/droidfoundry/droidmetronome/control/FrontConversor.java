@@ -1,4 +1,4 @@
-package app.com.droidmetronome.control;
+package com.droidfoundry.droidmetronome.control;
 
 /**
  * Created by pedro on 16/05/15.
@@ -6,13 +6,13 @@ package app.com.droidmetronome.control;
 
 import android.content.Context;
 
-import app.com.droidmetronome.model.FiguraRitmica;
-import app.com.droidmetronome.model.Sound_8Bits;
-import app.com.droidmetronome.model.Sound_beep;
-import app.com.droidmetronome.model.Sound_hiHats;
-import app.com.droidmetronome.model.Sound_kickClap;
-import app.com.droidmetronome.model.Sound_rimShot;
-import app.com.droidmetronome.model.TemplateSound;
+import com.droidfoundry.droidmetronome.model.FiguraRitmica;
+import com.droidfoundry.droidmetronome.model.Sound_8Bits;
+import com.droidfoundry.droidmetronome.model.Sound_beep;
+import com.droidfoundry.droidmetronome.model.Sound_hiHats;
+import com.droidfoundry.droidmetronome.model.Sound_kickClap;
+import com.droidfoundry.droidmetronome.model.Sound_rimShot;
+import com.droidfoundry.droidmetronome.model.TemplateSound;
 
 
 /**

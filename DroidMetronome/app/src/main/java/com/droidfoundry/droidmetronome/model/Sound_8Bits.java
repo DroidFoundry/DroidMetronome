@@ -1,10 +1,10 @@
-package app.com.droidmetronome.model;
+package com.droidfoundry.droidmetronome.model;
 
 import android.content.Context;
 import android.media.AudioManager;
 import android.media.SoundPool;
 
-import app.com.droidmetronome.R;
+import com.droidfoundry.droidmetronome.R;
 
 /**
  * Created by pedro on 03/06/15.

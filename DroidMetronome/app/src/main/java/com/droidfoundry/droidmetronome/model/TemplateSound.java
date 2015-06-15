@@ -1,4 +1,4 @@
-package app.com.droidmetronome.model;
+package com.droidfoundry.droidmetronome.model;
 
 /**
  * Created by pedro on 03/06/15.
