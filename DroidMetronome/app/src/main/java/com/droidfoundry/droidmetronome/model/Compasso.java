@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Looper;
 
 import com.droidfoundry.droidmetronome.control.FrontConversor;
+import com.droidfoundry.droidmetronome.control.HardwareActions;
 import com.droidfoundry.droidmetronome.control.SoundTimeLoop;
 
 /**
@@ -18,9 +19,6 @@ public class Compasso extends IntentService {
 
     private FiguraRitmica figuraRitmica;
     private SoundTimeLoop timer;
-
-    private boolean vibrating;
-    private boolean lighting;
 
     /**
      * Construtor da classe compasso
@@ -41,11 +39,16 @@ public class Compasso extends IntentService {
         int min = FrontConversor.getInstance().getTempoMinutos();
         long freq = FrontConversor.getInstance().getFrequenciaBPM();
         int bat = FrontConversor.getInstance().getQuantidadeBatidas();
+
         this.setSoundConfiguration(figRit, min, freq, bat);
 
         // Configuraçoes luz e vibração
-        this.vibrating = FrontConversor.getInstance().isVibracao();
-        this.lighting = FrontConversor.getInstance().isFlash();
+        boolean vibrating = FrontConversor.getInstance().isVibracao();
+        boolean lighting = FrontConversor.getInstance().isFlash();
+
+        // Definindo configurações de hardware
+        HardwareActions.getInstance().setHardwareConfiguration(vibrating, lighting, getApplicationContext());
+        HardwareActions.getInstance().startConfiguration();
     }
 
     /**
@@ -61,13 +64,10 @@ public class Compasso extends IntentService {
         int tempoMiliSegundos = (this.tempoMinutos * 60 * 1000); // (60000 milisegundos)
 
         // Iniciando ciclo de batidas
-        timer = new SoundTimeLoop(tempoMiliSegundos,delay / this.figuraRitmica.getValue());
+        timer = new SoundTimeLoop(tempoMiliSegundos, delay / this.figuraRitmica.getValue());
         timer.setBatidasMaximo(this.batidasMaximo);
-        timer.setContext(getApplicationContext());
-        timer.setFiguraRitmica(this.figuraRitmica);
-        timer.startConfiguration();
-        timer.setHardwareConfiguration(vibrating, lighting);
 
+        timer.setFiguraRitmica(this.figuraRitmica);
 
         timer.start();
         Looper.loop();

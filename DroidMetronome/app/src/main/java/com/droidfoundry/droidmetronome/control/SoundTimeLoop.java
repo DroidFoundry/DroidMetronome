@@ -17,20 +17,11 @@ public class SoundTimeLoop extends CountDownTimer{
 
     private TemplateSound som;
     private FiguraRitmica figuraRitmica;
-    private Context context;
 
-    private Vibrator vibrate;
-    private Camera camera;
-
-    private boolean isVibrating;
-    private boolean isLighting;
-    private boolean hardwareSupported;
     private boolean starting = false;
 
     private int batidasMaximo;
     private int batidasAtual = 0;
-
-    private long delay;
 
     /**
      * Construtor do timer
@@ -41,7 +32,7 @@ public class SoundTimeLoop extends CountDownTimer{
         super(millisInFuture, countDownInterval);
 
         // Tempo de intervalo
-        this.delay = countDownInterval;
+        HardwareActions.getInstance().setDelay(countDownInterval);
 
         // Som a ser tocado
         TemplateSound som = FrontConversor.getInstance().getSound();
@@ -57,7 +48,7 @@ public class SoundTimeLoop extends CountDownTimer{
     public void onTick(long l){
         try {
             // Ativando luz
-            activeLighting(isLighting);
+            HardwareActions.getInstance().activeLighting();
 
 
             if((figuraRitmica.getValue() >1 ) && (!this.starting)){
@@ -68,28 +59,28 @@ public class SoundTimeLoop extends CountDownTimer{
             if(batidasAtual < batidasMaximo) {
 
                 // Modo vibratório
-                activeVibration(isVibrating, (int) Math.ceil(delay));
+                HardwareActions.getInstance().activeVibration();
                 som.playSoundAlto();
 
                 batidasAtual++;
             }else{
 
                 // Modo vibratório
-                activeVibration(isVibrating, (int) Math.ceil(delay));
+                HardwareActions.getInstance().activeVibration();
                 som.playSoundBaixo();
 
                 batidasAtual = 1;
             }
 
             // Desativar flash
-            desactiveLighting(isLighting);
+            HardwareActions.getInstance().desactiveLighting();
 
 
         }catch(Exception erro) {
             erro.printStackTrace();
         } finally {
             // Desativar flash
-            desactiveLighting(isLighting);
+            HardwareActions.getInstance().desactiveLighting();
         }
 
     }
@@ -103,28 +94,11 @@ public class SoundTimeLoop extends CountDownTimer{
     }
 
     /**
-     * Iniciando configuração de sistema do metronomo
-     */
-    public void startConfiguration(){
-        // Configurações gerais
-        this.vibrate = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
-        this.hardwareSupported = HardwareSupported();
-    }
-
-    /**
      * Método que define uma figura ritmica para o contador
      * @param figuraRitmica
      */
     public void setFiguraRitmica(FiguraRitmica figuraRitmica){
         this.figuraRitmica = figuraRitmica;
-    }
-
-    /**
-     * Método para adicionar um contexto.
-     * @param context
-     */
-    public void setContext(Context context){
-        this.context = context;
     }
 
     /**
@@ -135,70 +109,4 @@ public class SoundTimeLoop extends CountDownTimer{
         this.batidasMaximo = batidasMaximo;
     }
 
-    /**
-     * Define as configurações de hardware
-     * @param vibrating - Define vibrações
-     * @param lighting - Define luz
-     */
-    public void setHardwareConfiguration(boolean vibrating ,boolean lighting){
-        this.isVibrating = vibrating;
-        this.isLighting = lighting;
-
-        this.hardwareSupported = this.HardwareSupported();
-    }
-
-    /**
-     * Verifica se o hardware é compativel
-     * @return
-     */
-    private boolean HardwareSupported(){
-        PackageManager pm = context.getPackageManager();
-
-        boolean flash = pm.hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH);
-        boolean camera = pm.hasSystemFeature(PackageManager.FEATURE_CAMERA);
-        return(flash && camera);
-    }
-
-    /**
-     * Ativando vibração
-     * @param vibrating - flag que verifica se está disponivel
-     * @param delay - duração
-     */
-    private void activeVibration(boolean vibrating ,long delay){
-        if(vibrating)
-            vibrate.vibrate(delay/10);
-    }
-
-    /**
-     * Ativa a luz
-     * @param lighting - flag que verifica se está disponivel
-     */
-    private void activeLighting(boolean lighting){
-        if((lighting) && (hardwareSupported)){
-
-            if(camera == null) {
-
-                camera = Camera.open();
-                Camera.Parameters parameters = camera.getParameters();
-
-                parameters.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
-                camera.setParameters(parameters);
-                camera.startPreview();
-            }
-        }
-    }
-
-    /**
-     * Desativa a luz
-     * @param lighting - flag que verifica se está disponivel
-     */
-    private void desactiveLighting(boolean lighting){
-        if((lighting) && (hardwareSupported)){
-
-            if(camera != null) {
-                camera.release();
-                camera = null;
-            }
-        }
-    }
 }

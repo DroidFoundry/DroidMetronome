@@ -18,31 +18,51 @@ public class Sound_kickClap implements TemplateSound{
     private int idSom;
 
     private boolean readyAlto = false;
+    private boolean readyBaixo = false;
 
     public Sound_kickClap(Context context){
         this.sound = new SoundPool(10, AudioManager.STREAM_MUSIC,0);
 
         this.somAlto = sound.load(context, R.raw.kick_clap_02,1);
+        this.prepareSoundAlto(sound);
+
+        this.somBaixo = sound.load(context,R.raw.kick_clap_01,1);
+        //this.prepareSoundBaixo(sound);
+
+    }
+
+    @Override
+    public void prepareSoundAlto(SoundPool sound){
         sound.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener(){
 
             public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
                 readyAlto = true;
             }
+
         });
+    }
 
-        this.somBaixo = sound.load(context,R.raw.kick_clap_01,1);
+    @Override
+    public void prepareSoundBaixo(SoundPool sound){
+        sound.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
 
+            public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
+                readyBaixo = true;
+            }
+
+        });
     }
 
     @Override
     public void playSoundAlto() {
         if(readyAlto)
-        idSom = this.sound.play(somAlto, 1, 1, 1, 0, 1);
+            idSom = this.sound.play(somAlto, 1, 1, 1, 0, 1);
     }
 
     @Override
     public void playSoundBaixo(){
-        idSom = this.sound.play(somBaixo, 1, 1, 1, 0, 1);
+        //if(readyBaixo)
+            idSom = this.sound.play(somBaixo, 1, 1, 1, 0, 1);
     }
 
     @Override
