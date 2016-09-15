@@ -18,11 +18,13 @@ Descrição
 
 Licenciamento
 -------------
-*Até o fechamento deste trabalho, todos os direitos reservados.*
+DroidMetronome é distribuído sob os termos da [MIT License](https://opensource.org/licenses/MIT). Consulte o arquivo [COPYING](./COPYING) para mais detalhes.
 
 Instalação
 ----------
-*A implementar.*
+**DroidMetronome** está disponível como um pacote *.apk* instalável disponível neste repositório.
+
+Para baixar o pacote *.apk*, vá para a seção [***releases***](../../releases/latest) e faça download da última versão do mesmo. Abra o *.apk* no seu dispositivo Android e instale-o.
 
 Autores
 -------
@@ -34,7 +36,6 @@ Autores
  * Paulo de Oliveira Neto - <pauloesgyn@gmail.com>
  * Pedro Henrique Silva Farias - <pedrohenriquedrim@gmail.com>
  * Renan Ofugi Mikami - <renangyn2010@hotmail.com>
- 
 
 *Quick Start*
 -------------
@@ -56,8 +57,15 @@ Bug tracker
 -----------
 Encontrou um bug? Quer sugerir um novo recurso ou melhoria? Informe-nos aqui no GitHub!
 
-[Issues - gabrielaimeeg/DroidMetronome](https://github.com/gabrielaimeeg/DroidMetronome/issues)
+[Issues - gabrielaimeeg/DroidMetronome](../../issues)
 
 Pull Request
 ------------
-*Até o fechamento deste trabalho, Pull Requests não serão aceitos.*
+Contribuições no software são bem vindas. Para contribuir:
+
+* Crie um *fork* do projeto;
+* Faça a melhoria na área desejada;
+* Abra um Pull Request;
+* Aguarde aprovação.
+
+[Pull Requests - gabrielaaimeeg/DroidMetronome](../../pulls)
