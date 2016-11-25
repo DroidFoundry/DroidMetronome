@@ -3,10 +3,10 @@ test:
   override:
     - .\gradlew assembleDebug
     #start emulator
-    - emulator -avd circleci-android22 -no-audio -no-window:
-      background: true
-      parallel: true
-    - circle-android wait-for-boot
-    - ./gradlew connectedAndroidTest
-    - cp -r DroidMetronome/build/outputs $CIRCLE_ARTIFACTS
-    - cp -r DroidMetronome/build/outputs/androidTest-results/* $CIRCLE_TEST_REPORTS
+    ##- emulator -avd circleci-android22 -no-audio -no-window:
+      ##background: true
+      ##parallel: true
+    ##- circle-android wait-for-boot
+    ##- ./gradlew connectedAndroidTest
+    ##- cp -r DroidMetronome/build/outputs $CIRCLE_ARTIFACTS
+    ##- cp -r DroidMetronome/build/outputs/androidTest-results/* $CIRCLE_TEST_REPORTS
