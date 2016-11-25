@@ -8,10 +8,13 @@ android:
   components:
   - tools
   - platform-tools
-  - build-tools-23.0.3
-  - android-23
+  - build-tools-22.0.1
+  - android-22
   - sys-img-${ANDROID_ABI}-${ANDROID_TARGET}
   - extra-android-m2repository
+  - extra-google-m2repository
+before_install:
+  - "chmod +x gradlew"
 script:
   - ./gradlew connectedCheck
   - ant debug install test
