@@ -1,4 +1,4 @@
-![DroidMetronome_icone](./Projeto/extras/icone/droidmetronome.png) DroidMetronome
+![DroidMetronome_icone](./wiki/Projeto/extras/icone/droidmetronome.png) DroidMetronome
 =================================================================
 
 [![Stories in Backlog](https://img.shields.io/github/issues-raw/gabrielaimeeg/DroidMetronome.svg?label=backlog&style=plastic)](https://waffle.io/gabrielaimeeg/DroidMetronome)
