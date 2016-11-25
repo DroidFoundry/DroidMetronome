@@ -3,6 +3,7 @@
 
 [![Stories in Backlog](https://img.shields.io/github/issues-raw/gabrielaimeeg/DroidMetronome.svg?label=backlog&style=plastic)](https://waffle.io/gabrielaimeeg/DroidMetronome)
 [![Stories in Ready](https://badge.waffle.io/gabrielaimeeg/DroidMetronome.png?label=ready&title=ready)](https://waffle.io/gabrielaimeeg/DroidMetronome)
+[![CircleCI](https://img.shields.io/circleci/project/github/DroidFoundry/DroidMetronome.svg?style=plastic)](https://circleci.com/gh/DroidFoundry/DroidMetronome)
 [![Codacy](https://img.shields.io/codacy/d043e8cac40e44d597499f8bae6c3603.svg?style=plastic)](https://www.codacy.com/app/gustavosotnas/DroidMetronome)
 [![GitHub release](https://img.shields.io/github/release/gabrielaimeeg/DroidMetronome.svg?label=stable&style=plastic)](https://github.com/gabrielaimeeg/DroidMetronome/releases/latest)
 [![GitHub tag](https://img.shields.io/github/tag/gabrielaimeeg/DroidMetronome.svg?label=development&style=plastic)](https://github.com/gabrielaimeeg/DroidMetronome/releases)
