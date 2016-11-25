@@ -20,4 +20,3 @@ script:
   - adb shell setprop dalvik.vm.dexopt-flags v=n,o=v
   - ./gradlew connectedCheck
 after_success:
-  - bash <(curl -s https://codecov.io/bash)
