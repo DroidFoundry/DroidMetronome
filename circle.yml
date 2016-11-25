@@ -10,3 +10,9 @@ test:
     - ./gradlew connectedAndroidTest
     - cp -r DroidMetronome/build/outputs $CIRCLE_ARTIFACTS
     - cp -r DroidMetronome/build/outputs/androidTest-results/* $CIRCLE_TEST_REPORTS
+
+deployment:
+  production:
+    branch: "master"
+    commands:
+      - sh ./deploy.sh
