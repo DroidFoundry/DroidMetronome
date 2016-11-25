@@ -14,7 +14,6 @@ android:
   - extra-android-m2repository
 script:
   - ./gradlew connectedCheck
-  - ./gradlew build connectedCheck
   - ant debug install test
   - ./gradlew connectedAndroidTest
 before_cache:
