@@ -1,7 +1,7 @@
 ##Build project Android
 test:
   override:
-    - .\gradlew assembleDebug
+    - ./gradlew assembleDebug
     #start emulator
     ##- emulator -avd circleci-android22 -no-audio -no-window:
       ##background: true
