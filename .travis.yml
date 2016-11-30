@@ -5,17 +5,16 @@ cache:
    - node_modules
 sudo: false
 
+env:
+  matrix:
+    - ANDROID_TARGET=android-21  ANDROID_ABI=armeabi-v7a
+
 android:
   components:
-   # Uncomment the lines below if you want to
-    # use the latest revision of Android SDK Tools
-    # - platform-tools
-    # - tools
-
-    # The BuildTools version used by your project
+    - platform-tools
+    - tools
     - build-tools-25.0.1
-
-    # The SDK version used to compile your project
+    - $ANDROID_TARGET
     - android-24
 
     # Additional components
@@ -26,9 +25,7 @@ android:
     # - add-on
     # - extra
 
-    # Specify at least one system image,
-    # if you need to run emulator(s) during your tests
-    - sys-img-armeabi-v7a-android-21
+    - sys-img-armeabi-v7a-$ANDROID_TARGET
     # - sys-img-x86-android-17
 
   licenses:
@@ -36,14 +33,13 @@ android:
 
 env:
   global:
-   # install timeout in minutes (2 minutes by default)
     - ADB_INSTALL_TIMEOUT=8
 
-# Emulator Management: Create, Start and Wait
 before_script:
-  - echo no | android create avd --force -n test -t android-21 --abi armeabi-v7a
+  - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI
   - emulator -avd test -no-skin -no-audio -no-window &
   - android-wait-for-emulator
+  - adb wait-for-device
   - adb shell input keyevent 82 &
 
 script:
