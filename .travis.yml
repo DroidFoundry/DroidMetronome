@@ -1,33 +1,16 @@
 language: android
 jdk: oraclejdk8
-cache:
-  directories:
-   - node_modules
 sudo: false
-
-install: travis_wait mvn install
-
-env:
-  matrix:
-    - ANDROID_TARGET=android-21  ANDROID_ABI=armeabi-v7a
 
 android:
   components:
     - platform-tools
     - tools
     - build-tools-25.0.1
-    - $ANDROID_TARGET
     - android-24
-
-    # Additional components
-    - extra-google-google_play_services
-    - extra-google-m2repository
+    - android-22
     - extra-android-m2repository
-    # - addon-google_apis-google-19
-    # - add-on
-    # - extra
-
-    - sys-img-armeabi-v7a-$ANDROID_TARGET
+    - sys-img-armeabi-v7a-22
     # - sys-img-x86-android-17
 
   licenses:
@@ -38,9 +21,12 @@ env:
     - ADB_INSTALL_TIMEOUT=8
 
 before_script:
+  - echo no | android create avd --force -n test -t android-22 --abi armeabi-v7a
+  - emulator -avd test -no-skin -no-audio -no-window &
+  - android-wait-for-emulator
+  - adb shell input keyevent 82 &
   - android-wait-for-emulator
   - adb wait-for-device
-  - adb shell input keyevent 82 &
 
 script:
   - android list target
