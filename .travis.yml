@@ -15,14 +15,8 @@ android:
 licenses:
    - 'android-sdk-license-.+'
 
-env:
-  global:
-    - ADB_INSTALL_TIMEOUT=8
-
 before_script:
   - adb shell input keyevent 82 &
-  - android-wait-for-emulator
-  - adb wait-for-device
 
 script:
   - ./gradlew connectedAndroidTest
