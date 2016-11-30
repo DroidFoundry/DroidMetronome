@@ -1,5 +1,10 @@
 apply plugin: 'com.android.application'
 
+adbOptions {
+    timeOutInMs 20 * 60 * 1000  // 20 minutes
+    installOptions "-d","-t"
+}
+
 android {
     compileSdkVersion 24
     buildToolsVersion "25.0.1"
