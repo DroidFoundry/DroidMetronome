@@ -1,10 +1,5 @@
 apply plugin: 'com.android.application'
 
-adbOptions {
-    timeOutInMs 20 * 60 * 1000  // 20 minutes
-    installOptions "-d","-t"
-}
-
 android {
     compileSdkVersion 24
     buildToolsVersion "25.0.1"
@@ -32,7 +27,7 @@ dependencies {
     androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.1'
     androidTestCompile 'com.android.support.test:runner:0.5'
     androidTestCompile 'com.android.support.test:rules:0.5'
-    androidTestCompile 'com.android.support:support-annotations:24.2.0'
+    androidTestCompile 'com.android.support:support-annotations:24.2.1'
     compile 'com.android.support:design:24.2.1'    
 //    compile 'com.getbase:floatingactionbutton:1.9.1'
 }
