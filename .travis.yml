@@ -32,7 +32,7 @@ android:
 
 addons:
   apt_packages:
-    - pandoc
+    #- pandoc
   artifacts:
     paths:
       - $(git ls-files -o | grep build/outputs | tr "\n" ":")
@@ -53,14 +53,14 @@ script:
   #- ./gradlew connectedAndroidTest -PdisablePreDex --continue --stacktrace
   #- rm /home/travis/.gradle/caches/2.8/plugin-resolution/cache.properties.lock
 
-after_success:
-  - ./gradlew jacocoFullReport
-  - codecov
+#after_success:
+ # - ./gradlew jacocoFullReport
+ #- codecov
 
-after_failure:
-  - pandoc builder/build/reports/tests/index.html -t plain | sed -n '/^Failed tests/,/default-package/p'
+#after_failure:
+  #- pandoc builder/build/reports/tests/index.html -t plain | sed -n '/^Failed tests/,/default-package/p'
 
-after_script:
+#after_script:
   # print lint results details
-  - for f in app/build/outputs/lint-results.html; do pandoc $f -t plain; done
-  - for f in data/build/outputs/lint-results.html; do pandoc $f -t plain; done
+  #- for f in app/build/outputs/lint-results.html; do pandoc $f -t plain; done
+  #- for f in data/build/outputs/lint-results.html; do pandoc $f -t plain; done
