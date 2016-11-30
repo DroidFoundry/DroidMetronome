@@ -1,22 +1,66 @@
 language: android
 jdk: oraclejdk8
+sudo: false
+
+cache:
+  directories:
+    - $HOME/.gradle/caches/2.8
+    - $HOME/.gradle/caches/jars-1
+    - $HOME/.gradle/daemon
+    - $HOME/.gradle/native
+    - $HOME/.gradle/wrapper
+
 env:
+  matrix:
+    
   global:
-    - ANDROID_TARGET=android-15
+    # wait up to 10 minutes for adb to connect to emulator
+    - ADB_INSTALL_TIMEOUT=10
+    - ANDROID_TARGET=android-24
     - ANDROID_ABI=armeabi-v7a
+
 android:
   components:
-  - tools
-  - platform-tools
-  - build-tools-23.0.3
-  - android-23
-  - extra-android-m2repository
-  - sys-img-${ANDROID_ABI}-${ANDROID_TARGET}
-script:
-  - ./gradlew build jacocoTestReport assembleAndroidTest
+    - platform-tools
+    - tools
+    - build-tools-25.0.1
+    - android-24
+    - extra-android-m2repository
+
+    # Emulator for the tests
+    - sys-img-${ANDROID_ABI}-${ANDROID_TARGET}
+
+addons:
+  apt_packages:
+    #- pandoc
+  artifacts:
+    paths:
+      - $(git ls-files -o | grep build/outputs | tr "\n" ":")
+
+before_install:
+  - pip install --user codecov
+
+before_script:
   - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI
   - emulator -avd test -no-skin -no-audio -no-window &
+
+script:
+  #- ./gradlew check -PdisablePreDex --continue --stacktrace
   - android-wait-for-emulator
-  - adb shell setprop dalvik.vm.dexopt-flags v=n,o=v
-  - ./gradlew connectedCheck
-after_success:
+  - adb devices
+  - adb shell input keyevent 82 &
+  #- ./gradlew connectedAndroidTest
+  #- ./gradlew connectedAndroidTest -PdisablePreDex --continue --stacktrace
+  #- rm /home/travis/.gradle/caches/2.8/plugin-resolution/cache.properties.lock
+
+#after_success:
+ # - ./gradlew jacocoFullReport
+ #- codecov
+
+#after_failure:
+  #- pandoc builder/build/reports/tests/index.html -t plain | sed -n '/^Failed tests/,/default-package/p'
+
+#after_script:
+  # print lint results details
+  #- for f in app/build/outputs/lint-results.html; do pandoc $f -t plain; done
+  #- for f in data/build/outputs/lint-results.html; do pandoc $f -t plain; done
