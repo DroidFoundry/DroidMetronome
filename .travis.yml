@@ -5,6 +5,8 @@ cache:
    - node_modules
 sudo: false
 
+install: travis_wait mvn install
+
 env:
   matrix:
     - ANDROID_TARGET=android-21  ANDROID_ABI=armeabi-v7a
