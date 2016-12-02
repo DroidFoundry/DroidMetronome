@@ -4,11 +4,6 @@ sudo: false
 
 addons:
   sonarqube: true
-  apt_packages:
-    #- pandoc
-  artifacts:
-    paths:
-      - $(git ls-files -o | grep build/outputs | tr "\n" ":")
 
 cache:
   directories:
@@ -20,8 +15,6 @@ cache:
     - $HOME/.sonar/cache
 
 env:
-  matrix:
-    
   global:
     # wait up to 10 minutes for adb to connect to emulator
     - ADB_INSTALL_TIMEOUT=10
@@ -35,8 +28,6 @@ android:
     - build-tools-25.0.1
     - android-24
     - extra-android-m2repository
-
-    # Emulator for the tests
     - sys-img-${ANDROID_ABI}-${ANDROID_TARGET}
 
 before_install:
@@ -49,24 +40,8 @@ before_script:
   - android-wait-for-emulator
 
 script:
-  #- ./gradlew check -PdisablePreDex --continue --stacktrace
   - adb devices
-  - sonar-scanner
-  #- ./gradlew connectedAndroidTest
-  #- ./gradlew connectedAndroidTest -PdisablePreDex --continue --stacktrace
-  #- rm /home/travis/.gradle/caches/2.8/plugin-resolution/cache.properties.lock
-
-#after_success:
- # - ./gradlew jacocoFullReport
- #- codecov
-
-#after_failure:
-  #- pandoc builder/build/reports/tests/index.html -t plain | sed -n '/^Failed tests/,/default-package/p'
-
-#after_script:
-  # print lint results details
-  #- for f in app/build/outputs/lint-results.html; do pandoc $f -t plain; done
-  #- for f in data/build/outputs/lint-results.html; do pandoc $f -t plain; done
+  - sonar-scanner -Dsonar.login=$SONAR_TOKEN
 
 notifications:
   email: false
