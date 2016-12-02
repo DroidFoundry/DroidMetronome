@@ -5,6 +5,10 @@ sudo: false
 addons:
   sonarqube: true
 
+sonarqube:
+  branches:
+  - master
+
 cache:
   directories:
     - $HOME/.gradle/caches/2.8
