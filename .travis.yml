@@ -2,6 +2,14 @@ language: android
 jdk: oraclejdk8
 sudo: false
 
+addons:
+  sonarqube: true
+  apt_packages:
+    #- pandoc
+  artifacts:
+    paths:
+      - $(git ls-files -o | grep build/outputs | tr "\n" ":")
+
 cache:
   directories:
     - $HOME/.gradle/caches/2.8
@@ -9,6 +17,7 @@ cache:
     - $HOME/.gradle/daemon
     - $HOME/.gradle/native
     - $HOME/.gradle/wrapper
+    - $HOME/.sonar/cache
 
 env:
   matrix:
@@ -29,13 +38,6 @@ android:
 
     # Emulator for the tests
     - sys-img-${ANDROID_ABI}-${ANDROID_TARGET}
-
-addons:
-  apt_packages:
-    #- pandoc
-  artifacts:
-    paths:
-      - $(git ls-files -o | grep build/outputs | tr "\n" ":")
 
 before_install:
   - pip install --user codecov
@@ -64,3 +66,6 @@ script:
   # print lint results details
   #- for f in app/build/outputs/lint-results.html; do pandoc $f -t plain; done
   #- for f in data/build/outputs/lint-results.html; do pandoc $f -t plain; done
+
+notifications:
+  email: false

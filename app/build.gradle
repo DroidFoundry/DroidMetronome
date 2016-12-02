@@ -1,4 +1,18 @@
 apply plugin: 'com.android.application'
+apply plugin: "org.sonarqube"
+
+sonarqube {
+    properties {
+        property "sonar.projectName", "DroidMetronome"
+        property "sonar.projectKey", "org.sonarqube:droidmetronome"
+        property "sonar.sourceEncoding","UTF-8"
+        property "sonar.sources","src"
+        property "sonar.exclusions","build/**,**/*.png"
+        property "sonar.import_unknown_files", true
+        property "sonar.android.lint.report", "./build/outputs/lint-results.xml"
+    }
+}
+
 
 android {
     compileSdkVersion 24
@@ -17,6 +31,9 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    lintOptions {
+        abortOnError false
     }
 }
 
