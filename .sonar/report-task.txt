@@ -1,5 +1,5 @@
 projectKey=org.sonarqube:droidmetronome
 serverUrl=http://localhost:9000
 dashboardUrl=http://localhost:9000/dashboard/index/org.sonarqube:droidmetronome
-ceTaskId=AVjAvowfX-QFUiV5hyPa
-ceTaskUrl=http://localhost:9000/api/ce/task?id=AVjAvowfX-QFUiV5hyPa
+ceTaskId=AVjFCSJDJRRiBf7GOikR
+ceTaskUrl=http://localhost:9000/api/ce/task?id=AVjFCSJDJRRiBf7GOikR
