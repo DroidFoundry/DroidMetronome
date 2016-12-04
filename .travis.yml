@@ -1,6 +1,6 @@
 language: android
 jdk: oraclejdk8
-sudo: false
+sudo: true
 
 addons:
   sonarqube: true
@@ -36,6 +36,7 @@ android:
     - sys-img-${ANDROID_ABI}-${ANDROID_TARGET}
 
 before_install:
+  - chmod +x gradlew
   - pip install --user codecov
 
 before_script:
@@ -46,6 +47,7 @@ before_script:
 
 script:
   - adb devices
+  - ./gradlew sonarqube
   - sonar-scanner -X -Dsonar.host.url=https://sonarqube.com -Dsonar.login=$SONAR_TOKEN
 
 notifications:
