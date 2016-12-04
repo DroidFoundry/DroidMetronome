@@ -40,8 +40,7 @@ before_script:
 
 script:
   - adb devices
-  - gradle sonarqube
-  - sonar-scanner -Dsonar.login=$SONAR_TOKEN
+  - sonar-scanner -X -Dsonar.host.url=https://sonarqube.com -Dsonar.login=$SONAR_TOKEN
 
 notifications:
   email: false
