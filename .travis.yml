@@ -1,14 +1,10 @@
 language: android
 jdk: oraclejdk8
-sudo: false
 
 addons:
-  sonarqube: true
-  apt_packages:
-    #- pandoc
-  artifacts:
-    paths:
-      - $(git ls-files -o | grep build/outputs | tr "\n" ":")
+  sonarqube:
+    token:
+      secure: e4VKguaenm50U/U+/3Z5fBEJnLNK9wWnw7DT3YByX4Qeg5T70f+i3Jl90RPlW6LpX0zX+/n3torn+0VpCuHrFtxWte7MWnaeRDpsZyPL0Hn17wpEMLnCsg4CdOPNC8OVa+Todv8TSr/h7yWLSTJ2WreAXJtLdCssvUS5c8HHERHLSNgiFVaqQGM3R8Vk8sYYpdkMsi5Y+VbYPWp9ZfDUZZsOCiqaUwPU2PG/4jq6Un+L+4zybnb3m5XU4tpcYX/+p0pIaMh1VK+jU5tPgBqFP6+hwPeqkfmXFd7EFSUxRTUFc+0xnoW1Guue1kZmMVUUF+zUSW8yCNERQTyqtpVOuD8BA65pwTd2i6unYdg4NkHy41nMSTlJjyAmVb4l3jGtRZodPpAnEiRVxEESmYtUZ8ZItNF3dCDeDL9owC56tIgDx0lIzp19imQHyGpkQyjiShhmqYl39w2P1ruBVv4tE71eRUKY/QRw98rXTouYaafHeMaLB6aehXa8ckQnuESFfR2hxOsfW5tGXUmloLKtvgUJ3LbAJjitVRMA3unolU5uhbuf6/Ld9OyPKHO3vShywNcOs2mPPNV6TfV5ES3yxldeEdtc2LaRgrn6O4e7PKqXoF+HOiAYUPvtxAgxAQQO9HpCnAK4VwldoPUQU8qJlmkiuRz0TX3MHbwoo5HZ9IQ=
 
 cache:
   directories:
@@ -20,10 +16,7 @@ cache:
     - $HOME/.sonar/cache
 
 env:
-  matrix:
-    
-  global:
-    # wait up to 10 minutes for adb to connect to emulator
+  global: 
     - ADB_INSTALL_TIMEOUT=10
     - ANDROID_TARGET=android-24
     - ANDROID_ABI=armeabi-v7a
@@ -35,37 +28,20 @@ android:
     - build-tools-25.0.1
     - android-24
     - extra-android-m2repository
-
-    # Emulator for the tests
     - sys-img-${ANDROID_ABI}-${ANDROID_TARGET}
 
 before_install:
-  - pip install --user codecov
+  - chmod +x gradlew
 
 before_script:
   - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI
   - emulator -avd test -no-skin -no-audio -no-window &
+  - adb shell input keyevent 82 &
+  - android-wait-for-emulator
 
 script:
-  #- ./gradlew check -PdisablePreDex --continue --stacktrace
-  - android-wait-for-emulator
   - adb devices
-  - adb shell input keyevent 82 &
-  #- ./gradlew connectedAndroidTest
-  #- ./gradlew connectedAndroidTest -PdisablePreDex --continue --stacktrace
-  #- rm /home/travis/.gradle/caches/2.8/plugin-resolution/cache.properties.lock
-
-#after_success:
- # - ./gradlew jacocoFullReport
- #- codecov
-
-#after_failure:
-  #- pandoc builder/build/reports/tests/index.html -t plain | sed -n '/^Failed tests/,/default-package/p'
-
-#after_script:
-  # print lint results details
-  #- for f in app/build/outputs/lint-results.html; do pandoc $f -t plain; done
-  #- for f in data/build/outputs/lint-results.html; do pandoc $f -t plain; done
+  - sonar-scanner -X -Dsonar.host.url=https://sonarqube.com -Dsonar.login=$SONAR_TOKEN
 
 notifications:
   email: false
