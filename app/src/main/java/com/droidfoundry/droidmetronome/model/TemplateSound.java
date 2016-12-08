@@ -52,7 +52,6 @@ public class TemplateSound{
      * Executa o som alto
      */
     public void playSoundAlto() {
-        if(readySound)
             idSom = this.sound.play(somAlto, 1, 1, 1, 0, 1);
     }
 
@@ -60,7 +59,6 @@ public class TemplateSound{
      * Executa o som baixo
      */
     public void playSoundBaixo(){
-        if(readySound)
             idSom = this.sound.play(somBaixo, 1, 1, 1, 0, 1);
     }
 

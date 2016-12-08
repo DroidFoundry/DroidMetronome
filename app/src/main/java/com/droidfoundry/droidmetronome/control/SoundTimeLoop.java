@@ -73,7 +73,7 @@ public class SoundTimeLoop extends CountDownTimer{
 
 
         }catch(RuntimeException erro) {
-
+            throw new MetronomoException("Erro ao executar o som");
         } finally {
             // Desativar flash
             HardwareActions.getInstance().desactiveLighting();
@@ -86,6 +86,7 @@ public class SoundTimeLoop extends CountDownTimer{
      */
     @Override
     public void onFinish() {
+        this.templateSound.stopSound();
         Looper.myLooper().quit();
     }
 
