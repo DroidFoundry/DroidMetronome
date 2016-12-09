@@ -1,9 +1,10 @@
 <resources>
     <!-- Tema do app-->
-    <style name="Metronome.Theme" parent="@style/Theme.AppCompat.Light.DarkActionBar">
-        <item name="colorPrimary">@color/metronome_green</item>
-        <item name="colorPrimaryDark">@color/metronome_dark_green</item>
-        <item name="android:buttonStyleToggle">@style/Button.Play.Theme</item>
+    <style name="Metronome.Theme" parent="@style/Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/color_primary</item>
+        <item name="colorPrimaryDark">@color/color_primary_dark</item>
+        <item name="colorAccent">@color/color_accent</item>
+
     </style>
 
     <!-- Tema do app na tela principal-->
@@ -16,11 +17,5 @@
         <item name="displayOptions">useLogo|showHome</item>
     </style>
 
-    <!-- Tema do botão play-->
-    <style name = "Button.Play.Theme" parent= "android:Widget">
-        <item name = "android:background">@drawable/button_play_background</item>
-        <item name = "android:disabledAlpha">?android:attr/disabledAlpha</item>
-
-    </style>
 
 </resources>

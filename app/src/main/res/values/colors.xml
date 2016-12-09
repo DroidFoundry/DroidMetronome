@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="metronome_green">#8BC34A</color>
-    <color name="metronome_dark_green">#7cb342</color>
+    <color name="color_primary">#8BC34A</color>
+    <color name="color_primary_dark">#7cb342</color>
+    <color name="color_accent">#FF9800</color>
+    <color name="color_accent_dark">#FF5722</color>
+    <color name="color_primary_text">#212121</color>
     <color name="metronome_about_grey">#e0e0e0</color>
 </resources>

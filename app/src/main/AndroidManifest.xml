@@ -18,11 +18,20 @@
         android:screenOrientation="portrait"
         android:theme="@style/Metronome.Theme" >
 
+        <service
+            android:enabled="true"
+            android:name=".control.Compasso" />
+
         <activity
-            android:name=".view.MainActivity"
-            android:label="@string/app_name"
-            android:screenOrientation="portrait"
-            android:theme="@style/Metronome.Main.Theme" >
+            android:name=".control.activity.ConfiguracoesActivity"
+            android:label="@string/title_activity_configuracoes"
+            android:screenOrientation="portrait" >
+        </activity>
+
+        <activity
+            android:name=".control.activity.MainActivity"
+            android:label="@string/title_activity_configuracoes"
+            android:screenOrientation="portrait" >
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,15 +41,7 @@
 
         </activity>
 
-        <service
-            android:enabled="true"
-            android:name=".control.Compasso" />
 
-        <activity
-            android:name=".view.ConfiguracoesActivity"
-            android:label="@string/title_activity_configuracoes"
-            android:screenOrientation="portrait" >
-        </activity>
 
     </application>
 

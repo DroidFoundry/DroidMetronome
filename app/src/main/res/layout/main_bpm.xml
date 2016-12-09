@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_bpm"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="16dp"
+    >
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/edt_txt_bpm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="BPM"
+            android:inputType="number" />
+
+    </android.support.design.widget.TextInputLayout>
+
+</RelativeLayout>

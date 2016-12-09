@@ -1,4 +1,4 @@
-package com.droidfoundry.droidmetronome.view;
+package com.droidfoundry.droidmetronome.control.activity;
 
 import android.os.Bundle;
 import android.preference.ListPreference;

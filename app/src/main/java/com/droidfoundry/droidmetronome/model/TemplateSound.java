@@ -4,8 +4,6 @@ import android.content.Context;
 import android.media.AudioManager;
 import android.media.SoundPool;
 
-import com.droidfoundry.droidmetronome.control.SoundLoader;
-
 /**
  * Created by pedro on 03/06/15.
  * Abstrai e prepara os sons a serem executados pelo metronomo.
@@ -17,8 +15,6 @@ public class TemplateSound{
 
     private SoundPool sound;
     private int idSom;
-
-    private boolean readySound = false;
 
     /**
      * Inicia o carregamento dos sons na memoria
@@ -33,26 +29,20 @@ public class TemplateSound{
         this.somAlto = sound.load(context, somAlto.getValue(),1);
         this.somBaixo = sound.load(context,somBaixo.getValue(),1);
 
-        this.readySound = this.prepareSound(sound);
-    }
+        this.sound.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
+            @Override
+            public void onLoadComplete(SoundPool soundPool, int i, int i1) {
 
-    /**
-     * Inicia o carregamento do som na memoria
-     * @param sound som a ser carregado
-     * @return o estado do som
-     */
-    private boolean prepareSound(SoundPool sound){
+            }
+        });
 
-        SoundLoader soundLoader = new SoundLoader();
-        sound.setOnLoadCompleteListener(soundLoader);
-        return soundLoader.isReady();
     }
+    
 
     /**
      * Executa o som alto
      */
     public void playSoundAlto() {
-        if(readySound)
             idSom = this.sound.play(somAlto, 1, 1, 1, 0, 1);
     }
 
@@ -60,7 +50,6 @@ public class TemplateSound{
      * Executa o som baixo
      */
     public void playSoundBaixo(){
-        if(readySound)
             idSom = this.sound.play(somBaixo, 1, 1, 1, 0, 1);
     }
 
