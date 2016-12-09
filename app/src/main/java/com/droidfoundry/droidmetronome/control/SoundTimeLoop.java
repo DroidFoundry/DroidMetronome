@@ -2,83 +2,86 @@ package com.droidfoundry.droidmetronome.control;
 
 import android.os.CountDownTimer;
 import android.os.Looper;
-
-import com.droidfoundry.droidmetronome.model.FiguraRitmica;
-import com.droidfoundry.droidmetronome.model.TemplateSound;
+import com.droidfoundry.droidmetronome.model.RhythmFigure;
+import com.droidfoundry.droidmetronome.model.SoundTemplate;
 
 /**
  * Created by pedro on 12/05/15.
  */
-public class SoundTimeLoop extends CountDownTimer{
+public class SoundTimeLoop extends CountDownTimer {
 
-    private TemplateSound templateSound;
-    private FiguraRitmica figuraRitmica;
-
+    private SoundTemplate templateSound;
+    private RhythmFigure rhythmFigure;
     private boolean starting = false;
-
-    private int batidasMaximo;
-    private int batidasAtual = 0;
+    private int beatsMax;
+    private int beatsCurrent = 0;
 
     /**
      * Construtor do timer
-     * @param templateSound - som a ser tocado
-     * @param millisInFuture - tempo máximo
+     *
+     * @param soundTemplate     - som a ser tocado
+     * @param millisInFuture    - tempo máximo
      * @param countDownInterval - tempo entre toques
      */
-    public SoundTimeLoop(TemplateSound templateSound, long millisInFuture, long countDownInterval) {
-        super(millisInFuture, countDownInterval);
+    public SoundTimeLoop(SoundTemplate soundTemplate, long millisInFuture, long countDownInterval) {
 
+        super(millisInFuture, countDownInterval);
         // Tempo de intervalo
         HardwareActions.getInstance().setDelay(countDownInterval);
-
         // Som a ser tocado
-        this.templateSound = templateSound;
-
+        this.templateSound = soundTemplate;
     }
 
     /**
      * Método para cada tick
+     *
      * @param l
      */
     @Override
-    public void onTick(long l){
+    public void onTick(long l) {
+
+        int rhythmFigureValue = rhythmFigure.getRhythmFigureValue();
+        int rhythmFigureDecrement = rhythmFigureValue--;
+
+
         try {
             // Ativando luz
             HardwareActions.getInstance().activeLighting();
 
+            if ((rhythmFigureValue > 1) && (!this.starting)) {
 
-            if((figuraRitmica.getValue() >1 ) && (!this.starting)){
-                batidasMaximo = batidasMaximo * this.figuraRitmica.getValue() - (this.figuraRitmica.getValue() - 1);
+                int rhythmFigureTemp = rhythmFigureValue - rhythmFigureDecrement;
+                beatsMax = beatsMax * rhythmFigureTemp;
                 this.starting = true;
             }
 
-            if(batidasAtual < batidasMaximo) {
+            if (beatsCurrent < beatsMax) {
 
                 // Modo vibratório
                 HardwareActions.getInstance().activeVibration();
                 templateSound.playSoundAlto();
+                beatsCurrent++;
 
-                batidasAtual++;
-            }else{
+            } else {
 
                 // Modo vibratório
                 HardwareActions.getInstance().activeVibration();
                 templateSound.playSoundBaixo();
-
-                batidasAtual = 1;
+                beatsCurrent = 1;
             }
 
             // Desativar flash
             HardwareActions.getInstance().desactiveLighting();
 
 
-        }catch(RuntimeException erro) {
+        } catch (RuntimeException e) {
+
+            throw e;
 
         } finally {
             // Desativar flash
             HardwareActions.getInstance().desactiveLighting();
         }
-
     }
 
     /**
@@ -86,23 +89,28 @@ public class SoundTimeLoop extends CountDownTimer{
      */
     @Override
     public void onFinish() {
+
         Looper.myLooper().quit();
     }
 
     /**
      * Método que define uma figura ritmica para o contador
-     * @param figuraRitmica
+     *
+     * @param rhythmFigure
      */
-    public void setFiguraRitmica(FiguraRitmica figuraRitmica){
-        this.figuraRitmica = figuraRitmica;
+    public void setFiguraRitmica(RhythmFigure rhythmFigure) {
+
+        this.rhythmFigure = rhythmFigure;
     }
 
     /**
      * Método para adicionar as batidas máximo
-     * @param batidasMaximo
+     *
+     * @param beatsMax
      */
-    public void setBatidasMaximo(int batidasMaximo){
-        this.batidasMaximo = batidasMaximo;
+    public void setBatidasMaximo(int beatsMax) {
+
+        this.beatsMax = beatsMax;
     }
 
 }

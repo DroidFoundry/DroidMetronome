@@ -20,16 +20,16 @@
 
         <service
             android:enabled="true"
-            android:name=".control.Compasso" />
+            android:name=".control.Compass" />
 
         <activity
-            android:name=".control.activity.ConfiguracoesActivity"
+            android:name=".control.ConfiguracoesActivity"
             android:label="@string/title_activity_configuracoes"
             android:screenOrientation="portrait" >
         </activity>
 
         <activity
-            android:name=".control.activity.MainActivity"
+            android:name=".control.MainActivity"
             android:label="@string/title_activity_configuracoes"
             android:screenOrientation="portrait" >
 

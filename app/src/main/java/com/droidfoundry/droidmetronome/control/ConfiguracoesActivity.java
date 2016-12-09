@@ -1,4 +1,4 @@
-package com.droidfoundry.droidmetronome.control.activity;
+package com.droidfoundry.droidmetronome.control;
 
 import android.os.Bundle;
 import android.preference.ListPreference;
@@ -9,7 +9,9 @@ import android.widget.Toast;
 
 import com.droidfoundry.droidmetronome.R;
 
-
+/**
+ * Actibity responsavel pela configuração do sistema
+ */
 public class ConfiguracoesActivity extends PreferenceActivity implements Preference.OnPreferenceChangeListener{
 
     @Override

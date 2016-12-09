@@ -1,8 +1,7 @@
-package com.droidfoundry.droidmetronome.control.activity;
+package com.droidfoundry.droidmetronome.control;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
@@ -20,44 +19,39 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.droidfoundry.droidmetronome.R;
-import com.droidfoundry.droidmetronome.control.CampoVazioException;
-import com.droidfoundry.droidmetronome.control.ClickListenerModel;
-import com.droidfoundry.droidmetronome.control.Compasso;
+import com.droidfoundry.droidmetronome.model.InputLimit;
 import com.droidfoundry.droidmetronome.model.UserInterface;
-
 
 import org.greenrobot.eventbus.EventBus;
 
-
+/**
+ * Activity princial do sistema
+ */
 
 public class MainActivity extends AppCompatActivity {
 
     private boolean inExecution;
 
-    private int idSom = 1;
+    private int soundValue = 1;
     private int idBit8 = 1;
     private int idHihats = 2;
     private int idKickClap = 3;
     private int idRimshot = 4;
     private int idBeep = 5;
-
     private Spinner spinnerSons;
-    private SeekBar seekBarTimer, seekBarBatidas , seekBarBase;
-    private NumberPicker npQntBatidas;
-    private NumberPicker npValorBase;
+    private SeekBar seekBarTimer;
+    private SeekBar seekBarBatidas;
+    private SeekBar seekBarBase;
     private EditText textBpm;
-    private FloatingActionButton buttonPlay, buttonStop;
-    private TextView valorTimer, valorBatidas, valorBase;
+    private FloatingActionButton buttonPlay;
+    private FloatingActionButton buttonStop;
+    private TextView valorTimer;
+    private TextView valorBatidas;
+    private TextView valorBase;
     private Toolbar mainToolbar;
 
-
-
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-
     static AppCompatActivity getActivity() {
+
         return getActivity();
     }
 
@@ -75,8 +69,9 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Retorna o id do som escolhido pelo usuário
      */
-    public int getIdSom() {
-        return idSom;
+    public int getSoundValue() {
+
+        return soundValue;
     }
 
     /**
@@ -85,7 +80,8 @@ public class MainActivity extends AppCompatActivity {
      * @param view
      */
     public void setIdBit8(View view) {
-        this.idSom = idBit8;
+
+        this.soundValue = idBit8;
     }
 
     /**
@@ -94,7 +90,8 @@ public class MainActivity extends AppCompatActivity {
      * @param view
      */
     public void setIdHihats(View view) {
-        this.idSom = idHihats;
+
+        this.soundValue = idHihats;
     }
 
     /**
@@ -103,7 +100,8 @@ public class MainActivity extends AppCompatActivity {
      * @param view
      */
     public void setIdKickClap(View view) {
-        this.idSom = idKickClap;
+
+        this.soundValue = idKickClap;
     }
 
     /**
@@ -112,7 +110,8 @@ public class MainActivity extends AppCompatActivity {
      * @param view
      */
     public void setIdRimshot(View view) {
-        this.idSom = idRimshot;
+
+        this.soundValue = idRimshot;
     }
 
     /**
@@ -121,47 +120,51 @@ public class MainActivity extends AppCompatActivity {
      * @param view
      */
     public void setIdBeep(View view) {
-        this.idSom = idBeep;
+
+        this.soundValue = idBeep;
     }
 
+    /**
+     * Converte a entrada do usuario em um objeto para o sistema
+     */
     private void mountInterface() {
+
+        int minTimeValue = InputLimit.TIME_PLAY_MIN.getInputLimitValue();
+        int maxTimeValue = InputLimit.TIME_PLAY_MAX.getInputLimitValue();
+
         mainToolbar = (Toolbar) findViewById(R.id.main_toolbar);
         setSupportActionBar(mainToolbar);
 
-        int defaultTimer = 1;
-        int minTimer = 1;
-        int maxTimer = 15;
-
         valorTimer = (TextView) findViewById(R.id.value_timer);
         seekBarTimer = (SeekBar) findViewById(R.id.seek_bar_timer);
-        seekBarTimer.setMax(maxTimer);
-        seekBarTimer.setProgress(defaultTimer);
+        seekBarTimer.setMax(maxTimeValue);
+        seekBarTimer.setProgress(minTimeValue);
         valorTimer.setText(Integer.toString(seekBarTimer.getProgress()));
 
         ClickListenerModel clickListener = new ClickListenerModel(valorTimer,
-                minTimer, maxTimer, getApplicationContext());
+                minTimeValue, maxTimeValue, getApplicationContext());
 
         seekBarTimer.setOnSeekBarChangeListener(clickListener.getSeekBarListener());
 
-        int defaultBpm = 120;
+        int defaultBpm = InputLimit.FREQUENCY_DEFAULT.getInputLimitValue();
         textBpm = (EditText) findViewById(R.id.edt_txt_bpm);
         textBpm.setText(Integer.toString(defaultBpm));
 
-        int defaultBatidas = 4;
-        int minBatidas = 1;
-        int maxBatidas = 16;
+        int defaultBeats = InputLimit.BEATS_DEFAULT.getInputLimitValue();
+        int minBeats = InputLimit.BEATS_MIN.getInputLimitValue();
+        int maxBeats = InputLimit.BEATS_MAX.getInputLimitValue();
 
         valorBatidas = (TextView) findViewById(R.id.value_batidas);
         seekBarBatidas = (SeekBar) findViewById(R.id.seek_bar_batidas);
-        seekBarBatidas.setMax(maxBatidas);
-        seekBarBatidas.setProgress(defaultBatidas);
+        seekBarBatidas.setMax(maxBeats);
+        seekBarBatidas.setProgress(defaultBeats);
 
         valorBatidas.setText(Integer.toString(seekBarBatidas.getProgress()));
 
-        ClickListenerModel clickListenerBatidas = new ClickListenerModel(valorBatidas,
-                minBatidas, maxBatidas, getApplicationContext());
+        ClickListenerModel clickListenerBeats = new ClickListenerModel(valorBatidas,
+                minBeats, maxBeats, getApplicationContext());
 
-        seekBarBatidas.setOnSeekBarChangeListener(clickListenerBatidas.getSeekBarListener());
+        seekBarBatidas.setOnSeekBarChangeListener(clickListenerBeats.getSeekBarListener());
 
 
         int defaultBase = 1;
@@ -170,7 +173,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         valorBase = (TextView) findViewById(R.id.value_base);
-        seekBarBase= (SeekBar) findViewById(R.id.seek_bar_valor_base);
+        seekBarBase = (SeekBar) findViewById(R.id.seek_bar_valor_base);
         seekBarBase.setMax(maxBase);
         seekBarBase.setProgress(defaultBase);
         valorBase.setText(Integer.toString(seekBarBase.getProgress()));
@@ -179,7 +182,6 @@ public class MainActivity extends AppCompatActivity {
                 minBase, maxBase, getApplicationContext());
 
         seekBarBase.setOnSeekBarChangeListener(clickListenerBase.getSeekBarListener());
-
 
 
         spinnerSons = (Spinner) findViewById(R.id.spinner_sons);
@@ -194,15 +196,17 @@ public class MainActivity extends AppCompatActivity {
         buttonStop = (FloatingActionButton) findViewById(R.id.floatingButtonStop);
 
 
-
     }
 
-
+    /**
+     * Executa o sistema
+     * @param view
+     */
     public void onClickPlay(View view) {
 
-        try{
+        try {
             if (isCampoValido(textBpm)) {
-                verificarSpinnerSons(spinnerSons.getSelectedItemPosition());
+                verifySpinnerSounds(spinnerSons.getSelectedItemPosition());
 
                 executar();
 
@@ -211,9 +215,10 @@ public class MainActivity extends AppCompatActivity {
 
             }
 
-        }catch(CampoVazioException e){
-            textBpm.setText("120");
+        } catch (FieldEmptyException e) {
 
+            int bpmDefault = InputLimit.BEATS_DEFAULT.getInputLimitValue();
+            textBpm.setText( String.valueOf(bpmDefault) );
             executar();
 
             this.buttonPlay.hide();
@@ -222,29 +227,38 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Para o sistema
+     * @param view
+     */
     public void onClickStop(View view) {
         // Is the toggle on?
         this.buttonPlay.show();
         this.buttonStop.hide();
-        stopService(new Intent(this, Compasso.class)); // encerrar service executar
+        stopService(new Intent(this, Compass.class)); // encerrar service executar
 
     }
 
-    public boolean isCampoValido(EditText editText) throws CampoVazioException{
-        final long BPM_MAX = 320;
-        final long BPM_DEFAULT = 120;
-        final long BPM_MIN = 80;
+    /**
+     * Verifica se os campos que contem os valores de entradas são validos
+     * @param editText
+     * @return
+     */
+    public boolean isCampoValido(EditText editText) {
+
+        final long BPM_MAX = InputLimit.BEATS_MAX.getInputLimitValue();
+        final long BPM_DEFAULT = InputLimit.BEATS_DEFAULT.getInputLimitValue();
+        final long BPM_MIN = InputLimit.BEATS_MIN.getInputLimitValue();
 
         boolean isCampoValido = true;
-        String textoDoCampo = editText.getText().toString();
+        String textValue = editText.getText().toString();
 
 
-
-        if(TextUtils.isEmpty(textoDoCampo)){
-          throw new CampoVazioException();
+        if (TextUtils.isEmpty(textValue)) {
+            throw new FieldEmptyException();
         }
 
-        long valorDoCampo = Long.parseLong(textoDoCampo);
+        long valorDoCampo = Long.parseLong(textValue);
 
         if (valorDoCampo > BPM_MAX) {
 
@@ -253,7 +267,7 @@ public class MainActivity extends AppCompatActivity {
 
         } else if (valorDoCampo < BPM_MIN) {
 
-            editText.setError("Utilize BPM maiores que "+ BPM_MIN);
+            editText.setError("Utilize BPM maiores que " + BPM_MIN);
             isCampoValido = false;
 
         } else {
@@ -265,22 +279,26 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void verificarSpinnerSons(int posicaoItem){
-        switch (posicaoItem){
+    /**
+     * Seleciona o som a ser tocado
+     * @param itemPosition
+     */
+    public void verifySpinnerSounds(int itemPosition) {
+        switch (itemPosition) {
             case 0:
-                this.idSom = idBit8;
+                this.soundValue = idBit8;
                 break;
             case 1:
-                this.idSom = idHihats;
+                this.soundValue = idHihats;
                 break;
             case 2:
-                this.idSom = idKickClap;
+                this.soundValue = idKickClap;
                 break;
             case 3:
-                this.idSom = idBeep;
+                this.soundValue = idBeep;
                 break;
             case 4:
-                this.idSom = idRimshot;
+                this.soundValue = idRimshot;
                 break;
         }
     }
@@ -301,20 +319,25 @@ public class MainActivity extends AppCompatActivity {
         Boolean flash = sharedPrefs.getBoolean(
                 getString(R.string.pref_flash_key), Boolean.parseBoolean(getString(R.string.pref_flash_default)));
 
-        userInterface.setVibracao(vibracao);
+        userInterface.setVibration(vibracao);
         userInterface.setFlash(flash);
 
-        userInterface.setTempoMinutos(seekBarTimer.getProgress());
-        userInterface.setFrequenciaBPM(Long.parseLong(textBpm.getText().toString()));
-        userInterface.setQuantidadeBatidas(seekBarBatidas.getProgress());
+        userInterface.setTimeInMinutes(seekBarTimer.getProgress());
+        userInterface.setFrequencyBPM(Long.parseLong(textBpm.getText().toString()));
+        userInterface.setBeatsQuantity(seekBarBatidas.getProgress());
 
-        userInterface.createSomById(getIdSom(), this);
-        userInterface.createFiguraRitmicaById(seekBarBase.getProgress());
+        userInterface.createSomById(getSoundValue(), this);
+        userInterface.createRhythmFigureByValue(seekBarBase.getProgress());
 
         EventBus.getDefault().postSticky(userInterface);
-        startService(new Intent(this,Compasso.class));
+        startService(new Intent(this, Compass.class));
     }
 
+    /**
+     * Cria as opções na interface do usuario
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -322,6 +345,11 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * Veficia se as opções estão selecionadas
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -338,10 +366,13 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Metodo que realiza a destruição das activitys
+     */
     @Override
     protected void onDestroy() {
         if (inExecution) {
-            stopService(new Intent(this, Compasso.class)); // encerrar service executar
+            stopService(new Intent(this, Compass.class)); // encerrar service executar
             inExecution = false;
 
         }

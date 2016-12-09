@@ -2,8 +2,6 @@ package com.droidfoundry.droidmetronome.control;
 
 
 import android.content.Context;
-import android.graphics.Color;
-import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -13,21 +11,27 @@ import com.droidfoundry.droidmetronome.R;
  * Created by paulo on 09/12/16.
  */
 
-public class ClickListenerModel{
+public class ClickListenerModel {
 
     private TextView descricaoSeekbar;
-    private int max, min;
+    private int max;
+    private int min;
     private Context context;
 
-
-    public ClickListenerModel(TextView descricaoSeekbar, int min, int max, Context context){
+    /**
+     * Constroi u
+     * @param descricaoSeekbar
+     * @param min
+     * @param max
+     * @param context
+     */
+    public ClickListenerModel(TextView descricaoSeekbar, int min, int max, Context context) {
         this.descricaoSeekbar = descricaoSeekbar;
         this.min = min;
         this.max = max;
         this.context = context;
 
     }
-
 
 
     SeekBar.OnSeekBarChangeListener seekBarListener = new SeekBar.OnSeekBarChangeListener() {
@@ -39,10 +43,9 @@ public class ClickListenerModel{
             if (progress < min) {
                 seekBar.setProgress(min);
 
-            } else if(progress > max){
+            } else if (progress > max) {
                 seekBar.setProgress(max);
-            }
-            else{
+            } else {
                 descricaoSeekbar.setText(Integer.toString(progress));
 
             }
