@@ -1,6 +1,6 @@
 package com.droidfoundry.droidmetronome.control;
 
-public class FieldEmptyException extends IllegalArgumentException {
+class FieldEmptyException extends IllegalArgumentException {
 
     public FieldEmptyException() {
 

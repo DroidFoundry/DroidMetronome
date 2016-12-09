@@ -18,7 +18,13 @@ public class ClickListenerModel {
     private int min;
     private Context context;
 
-
+    /**
+     * Constroi u
+     * @param descricaoSeekbar
+     * @param min
+     * @param max
+     * @param context
+     */
     public ClickListenerModel(TextView descricaoSeekbar, int min, int max, Context context) {
         this.descricaoSeekbar = descricaoSeekbar;
         this.min = min;

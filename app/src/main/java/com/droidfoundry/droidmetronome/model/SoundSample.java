@@ -2,6 +2,10 @@ package com.droidfoundry.droidmetronome.model;
 
 import com.droidfoundry.droidmetronome.R;
 
+/**
+ * Amostras de sons executados no sistema
+ */
+
 public enum SoundSample {
 
     BITS_HIGH(R.raw.bit8_02),

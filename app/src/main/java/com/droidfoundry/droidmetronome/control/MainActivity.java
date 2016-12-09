@@ -24,6 +24,10 @@ import com.droidfoundry.droidmetronome.model.UserInterface;
 
 import org.greenrobot.eventbus.EventBus;
 
+/**
+ * Activity princial do sistema
+ */
+
 public class MainActivity extends AppCompatActivity {
 
     private boolean inExecution;
@@ -35,12 +39,15 @@ public class MainActivity extends AppCompatActivity {
     private int idRimshot = 4;
     private int idBeep = 5;
     private Spinner spinnerSons;
-    private SeekBar seekBarTimer, seekBarBatidas, seekBarBase;
-    private NumberPicker npQntBatidas;
-    private NumberPicker npValorBase;
+    private SeekBar seekBarTimer;
+    private SeekBar seekBarBatidas;
+    private SeekBar seekBarBase;
     private EditText textBpm;
-    private FloatingActionButton buttonPlay, buttonStop;
-    private TextView valorTimer, valorBatidas, valorBase;
+    private FloatingActionButton buttonPlay;
+    private FloatingActionButton buttonStop;
+    private TextView valorTimer;
+    private TextView valorBatidas;
+    private TextView valorBase;
     private Toolbar mainToolbar;
 
     static AppCompatActivity getActivity() {
@@ -117,6 +124,9 @@ public class MainActivity extends AppCompatActivity {
         this.soundValue = idBeep;
     }
 
+    /**
+     * Converte a entrada do usuario em um objeto para o sistema
+     */
     private void mountInterface() {
 
         int minTimeValue = InputLimit.TIME_PLAY_MIN.getInputLimitValue();
@@ -188,7 +198,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
+    /**
+     * Executa o sistema
+     * @param view
+     */
     public void onClickPlay(View view) {
 
         try {
@@ -214,6 +227,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Para o sistema
+     * @param view
+     */
     public void onClickStop(View view) {
         // Is the toggle on?
         this.buttonPlay.show();
@@ -222,6 +239,11 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Verifica se os campos que contem os valores de entradas são validos
+     * @param editText
+     * @return
+     */
     public boolean isCampoValido(EditText editText) {
 
         final long BPM_MAX = InputLimit.BEATS_MAX.getInputLimitValue();
@@ -257,6 +279,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Seleciona o som a ser tocado
+     * @param itemPosition
+     */
     public void verifySpinnerSounds(int itemPosition) {
         switch (itemPosition) {
             case 0:
@@ -307,6 +333,11 @@ public class MainActivity extends AppCompatActivity {
         startService(new Intent(this, Compass.class));
     }
 
+    /**
+     * Cria as opções na interface do usuario
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -314,6 +345,11 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
+    /**
+     * Veficia se as opções estão selecionadas
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -330,6 +366,9 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Metodo que realiza a destruição das activitys
+     */
     @Override
     protected void onDestroy() {
         if (inExecution) {

@@ -9,7 +9,9 @@ import android.widget.Toast;
 
 import com.droidfoundry.droidmetronome.R;
 
-
+/**
+ * Actibity responsavel pela configuração do sistema
+ */
 public class ConfiguracoesActivity extends PreferenceActivity implements Preference.OnPreferenceChangeListener{
 
     @Override

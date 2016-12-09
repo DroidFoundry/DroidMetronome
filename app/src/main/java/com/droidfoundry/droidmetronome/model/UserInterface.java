@@ -2,6 +2,9 @@ package com.droidfoundry.droidmetronome.model;
 
 import android.content.Context;
 
+/**
+ * Intermediario das ações do usario para o sistema
+ */
 public class UserInterface {
 
     private SoundTemplate sound;

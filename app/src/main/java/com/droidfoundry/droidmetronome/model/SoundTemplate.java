@@ -4,6 +4,9 @@ import android.content.Context;
 import android.media.AudioManager;
 import android.media.SoundPool;
 
+/**
+ * Created by PedroDrim.
+ */
 public class SoundTemplate {
 
     private int highSound;

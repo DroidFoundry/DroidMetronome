@@ -1,5 +1,8 @@
 package com.droidfoundry.droidmetronome.model;
 
+/**
+ * Define as figuras ritmicas do sistema
+ */
 public enum RhythmFigure {
 
     WHOLE_NOTE(1),
