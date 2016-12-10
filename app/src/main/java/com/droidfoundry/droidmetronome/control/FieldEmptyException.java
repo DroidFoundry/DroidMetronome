@@ -3,10 +3,9 @@ package com.droidfoundry.droidmetronome.control;
 /**
  * Responsavel por reportar as exceções de campos vazios na interface
  */
-class FieldEmptyException extends IllegalArgumentException {
-
+public class FieldEmptyException extends IllegalArgumentException {
     /**
-     * Contrutor da classe de exceção
+     * cria instancia para lançamento da exceção
      */
     public FieldEmptyException() {
 

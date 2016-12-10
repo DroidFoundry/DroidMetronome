@@ -42,10 +42,10 @@ public class Compass extends IntentService {
         // Configurações de som no geral
         RhythmFigure rhythmFig = userInterface.getRhythmFigure();
         int minTimeInMinutes = userInterface.getTimeInMinutes();
-        long frequencyBpm = userInterface.getFrequencyBPM();
+        long frequency = userInterface.getFrequencyBPM();
         int numberBeats = userInterface.getBeatsQuantity();
 
-        this.setSoundConfiguration(rhythmFig, minTimeInMinutes, frequencyBpm, numberBeats);
+        this.setSoundConfiguration(rhythmFig, minTimeInMinutes, frequency, numberBeats);
         this.soundTemplate = userInterface.getSound();
 
         // Configuraçoes luz e vibração

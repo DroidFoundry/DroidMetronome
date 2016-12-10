@@ -33,7 +33,9 @@ public class ClickListenerModel {
 
     }
 
-    SeekBar.OnSeekBarChangeListener seekBarListener = new SeekBar.OnSeekBarChangeListener() {
+   SeekBar.OnSeekBarChangeListener listenerDroid
+           = new SeekBar.OnSeekBarChangeListener() {
+
         @Override
         public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
             if (progress < min) {
@@ -58,7 +60,7 @@ public class ClickListenerModel {
         }
     };
 
-    public SeekBar.OnSeekBarChangeListener getSeekBarListener() {
-        return seekBarListener;
+    SeekBar.OnSeekBarChangeListener getListenerDroid() {
+        return listenerDroid;
     }
 }

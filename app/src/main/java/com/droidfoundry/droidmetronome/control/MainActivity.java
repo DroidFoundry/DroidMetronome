@@ -145,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
         ClickListenerModel clickListener = new ClickListenerModel(valueTimer,
                 minTimeValue, maxTimeValue, getApplicationContext());
 
-        seekBarTimer.setOnSeekBarChangeListener(clickListener.getSeekBarListener());
+        seekBarTimer.setOnSeekBarChangeListener(clickListener.getListenerDroid());
 
         int defaultBpm = InputLimit.FREQUENCY_DEFAULT.getInputLimitValue();
         textBpm = (EditText) findViewById(R.id.edt_txt_bpm);
@@ -165,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
         ClickListenerModel clickListenerBeats = new ClickListenerModel(valueBeats,
                 minBeats, maxBeats, getApplicationContext());
 
-        seekBarBeats.setOnSeekBarChangeListener(clickListenerBeats.getSeekBarListener());
+        seekBarBeats.setOnSeekBarChangeListener(clickListenerBeats.getListenerDroid());
 
         int defaultBase = 1;
         int minBase = 1;
@@ -180,7 +180,7 @@ public class MainActivity extends AppCompatActivity {
         ClickListenerModel clickListenerBase = new ClickListenerModel(valueBase,
                 minBase, maxBase, getApplicationContext());
 
-        seekBarBase.setOnSeekBarChangeListener(clickListenerBase.getSeekBarListener());
+        seekBarBase.setOnSeekBarChangeListener(clickListenerBase.getListenerDroid());
 
         spinnerSons = (Spinner) findViewById(R.id.spinner_sons);
 
@@ -240,8 +240,8 @@ public class MainActivity extends AppCompatActivity {
      */
     public boolean isValidField(EditText editText) {
 
-        final long bpm_max = InputLimit.BEATS_MAX.getInputLimitValue();
-        final long bpm_min = InputLimit.BEATS_MIN.getInputLimitValue();
+        final long bpmMax = InputLimit.BEATS_MAX.getInputLimitValue();
+        final long bpmMin = InputLimit.BEATS_MIN.getInputLimitValue();
         boolean isValid;
         String textValue = editText.getText().toString();
 
@@ -251,14 +251,14 @@ public class MainActivity extends AppCompatActivity {
 
         long valueField = Long.parseLong(textValue);
 
-        if (valueField > bpm_max) {
+        if (valueField > bpmMax) {
 
-            editText.setError("Utilize BPM menores que " + bpm_max);
+            editText.setError("Utilize BPM menores que " + bpmMax);
             isValid = false;
 
-        } else if (valueField < bpm_min) {
+        } else if (valueField < bpmMin) {
 
-            editText.setError("Utilize BPM maiores que " + bpm_min);
+            editText.setError("Utilize BPM maiores que " + bpmMin);
             isValid = false;
 
         } else {
