@@ -1,6 +1,5 @@
 package com.droidfoundry.droidmetronome.control;
 
-
 import android.content.Context;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -13,55 +12,49 @@ import com.droidfoundry.droidmetronome.R;
 
 public class ClickListenerModel {
 
-    private TextView descricaoSeekbar;
+    private TextView barHistory;
     private int max;
     private int min;
     private Context context;
 
     /**
-     * Constroi u
-     * @param descricaoSeekbar
+     * Cria som para ouvir o metronomo
+     *
+     * @param barHistory
      * @param min
      * @param max
      * @param context
      */
-    public ClickListenerModel(TextView descricaoSeekbar, int min, int max, Context context) {
-        this.descricaoSeekbar = descricaoSeekbar;
+    public ClickListenerModel(TextView barHistory, int min, int max, Context context) {
+        this.barHistory = barHistory;
         this.min = min;
         this.max = max;
         this.context = context;
 
     }
 
-
     SeekBar.OnSeekBarChangeListener seekBarListener = new SeekBar.OnSeekBarChangeListener() {
         @Override
-        public void onProgressChanged(SeekBar seekBar, int progress,
-                                      boolean fromUser) {
-            // TODO Auto-generated method stub
-
+        public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
             if (progress < min) {
                 seekBar.setProgress(min);
-
             } else if (progress > max) {
                 seekBar.setProgress(max);
             } else {
-                descricaoSeekbar.setText(Integer.toString(progress));
-
+                barHistory.setText(Integer.toString(progress));
             }
-
         }
 
         @Override
         public void onStartTrackingTouch(SeekBar seekBar) {
-            int corTextoSeekBarAtivada = context.getResources().getColor(R.color.color_accent);
-            descricaoSeekbar.setTextColor(corTextoSeekBarAtivada);
+            int barOnTextColor = context.getResources().getColor(R.color.color_accent);
+            barHistory.setTextColor(barOnTextColor);
         }
 
         @Override
         public void onStopTrackingTouch(SeekBar seekBar) {
-            int corNormalTexto = context.getResources().getColor(R.color.color_primary_text);
-            descricaoSeekbar.setTextColor(corNormalTexto);
+            int barOffTextColor = context.getResources().getColor(R.color.color_primary_text);
+            barHistory.setTextColor(barOffTextColor);
         }
     };
 

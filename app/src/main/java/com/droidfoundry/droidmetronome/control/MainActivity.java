@@ -2,6 +2,7 @@ package com.droidfoundry.droidmetronome.control;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
@@ -13,25 +14,24 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.NumberPicker;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
-
 import com.droidfoundry.droidmetronome.R;
 import com.droidfoundry.droidmetronome.model.InputLimit;
 import com.droidfoundry.droidmetronome.model.UserInterface;
-
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.appindexing.Thing;
+import com.google.android.gms.common.api.GoogleApiClient;
 import org.greenrobot.eventbus.EventBus;
 
 /**
  * Activity princial do sistema
  */
-
 public class MainActivity extends AppCompatActivity {
 
     private boolean inExecution;
-
     private int soundValue = 1;
     private int idBit8 = 1;
     private int idHihats = 2;
@@ -40,15 +40,12 @@ public class MainActivity extends AppCompatActivity {
     private int idBeep = 5;
     private Spinner spinnerSons;
     private SeekBar seekBarTimer;
-    private SeekBar seekBarBatidas;
+    private SeekBar seekBarBeats;
     private SeekBar seekBarBase;
     private EditText textBpm;
     private FloatingActionButton buttonPlay;
     private FloatingActionButton buttonStop;
-    private TextView valorTimer;
-    private TextView valorBatidas;
-    private TextView valorBase;
-    private Toolbar mainToolbar;
+    private GoogleApiClient client;
 
     static AppCompatActivity getActivity() {
 
@@ -61,9 +58,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         this.mountInterface();
-
         inExecution = false;
-
+        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
     /**
@@ -129,19 +125,24 @@ public class MainActivity extends AppCompatActivity {
      */
     private void mountInterface() {
 
+        TextView valueTimer;
+        TextView valueBeats;
+        TextView valueBase;
+        Toolbar mainToolbar;
+
         int minTimeValue = InputLimit.TIME_PLAY_MIN.getInputLimitValue();
         int maxTimeValue = InputLimit.TIME_PLAY_MAX.getInputLimitValue();
 
         mainToolbar = (Toolbar) findViewById(R.id.main_toolbar);
         setSupportActionBar(mainToolbar);
 
-        valorTimer = (TextView) findViewById(R.id.value_timer);
+        valueTimer = (TextView) findViewById(R.id.value_timer);
         seekBarTimer = (SeekBar) findViewById(R.id.seek_bar_timer);
         seekBarTimer.setMax(maxTimeValue);
         seekBarTimer.setProgress(minTimeValue);
-        valorTimer.setText(Integer.toString(seekBarTimer.getProgress()));
+        valueTimer.setText(Integer.toString(seekBarTimer.getProgress()));
 
-        ClickListenerModel clickListener = new ClickListenerModel(valorTimer,
+        ClickListenerModel clickListener = new ClickListenerModel(valueTimer,
                 minTimeValue, maxTimeValue, getApplicationContext());
 
         seekBarTimer.setOnSeekBarChangeListener(clickListener.getSeekBarListener());
@@ -154,35 +155,32 @@ public class MainActivity extends AppCompatActivity {
         int minBeats = InputLimit.BEATS_MIN.getInputLimitValue();
         int maxBeats = InputLimit.BEATS_MAX.getInputLimitValue();
 
-        valorBatidas = (TextView) findViewById(R.id.value_batidas);
-        seekBarBatidas = (SeekBar) findViewById(R.id.seek_bar_batidas);
-        seekBarBatidas.setMax(maxBeats);
-        seekBarBatidas.setProgress(defaultBeats);
+        valueBeats = (TextView) findViewById(R.id.value_batidas);
+        seekBarBeats = (SeekBar) findViewById(R.id.seek_bar_batidas);
+        seekBarBeats.setMax(maxBeats);
+        seekBarBeats.setProgress(defaultBeats);
 
-        valorBatidas.setText(Integer.toString(seekBarBatidas.getProgress()));
+        valueBeats.setText(Integer.toString(seekBarBeats.getProgress()));
 
-        ClickListenerModel clickListenerBeats = new ClickListenerModel(valorBatidas,
+        ClickListenerModel clickListenerBeats = new ClickListenerModel(valueBeats,
                 minBeats, maxBeats, getApplicationContext());
 
-        seekBarBatidas.setOnSeekBarChangeListener(clickListenerBeats.getSeekBarListener());
-
+        seekBarBeats.setOnSeekBarChangeListener(clickListenerBeats.getSeekBarListener());
 
         int defaultBase = 1;
         int minBase = 1;
         int maxBase = 6;
 
-
-        valorBase = (TextView) findViewById(R.id.value_base);
+        valueBase = (TextView) findViewById(R.id.value_base);
         seekBarBase = (SeekBar) findViewById(R.id.seek_bar_valor_base);
         seekBarBase.setMax(maxBase);
         seekBarBase.setProgress(defaultBase);
-        valorBase.setText(Integer.toString(seekBarBase.getProgress()));
+        valueBase.setText(Integer.toString(seekBarBase.getProgress()));
 
-        ClickListenerModel clickListenerBase = new ClickListenerModel(valorBase,
+        ClickListenerModel clickListenerBase = new ClickListenerModel(valueBase,
                 minBase, maxBase, getApplicationContext());
 
         seekBarBase.setOnSeekBarChangeListener(clickListenerBase.getSeekBarListener());
-
 
         spinnerSons = (Spinner) findViewById(R.id.spinner_sons);
 
@@ -194,41 +192,37 @@ public class MainActivity extends AppCompatActivity {
 
         buttonPlay = (FloatingActionButton) findViewById(R.id.floatingButtonPlay);
         buttonStop = (FloatingActionButton) findViewById(R.id.floatingButtonStop);
-
-
     }
 
     /**
      * Executa o sistema
+     *
      * @param view
      */
     public void onClickPlay(View view) {
 
         try {
-            if (isCampoValido(textBpm)) {
+            if (isValidField(textBpm)) {
+
                 verifySpinnerSounds(spinnerSons.getSelectedItemPosition());
-
                 executar();
-
                 this.buttonPlay.hide();
                 this.buttonStop.show();
-
             }
 
         } catch (FieldEmptyException e) {
 
             int bpmDefault = InputLimit.BEATS_DEFAULT.getInputLimitValue();
-            textBpm.setText( String.valueOf(bpmDefault) );
+            textBpm.setText(String.valueOf(bpmDefault));
             executar();
-
             this.buttonPlay.hide();
             this.buttonStop.show();
         }
-
     }
 
     /**
      * Para o sistema
+     *
      * @param view
      */
     public void onClickStop(View view) {
@@ -236,51 +230,48 @@ public class MainActivity extends AppCompatActivity {
         this.buttonPlay.show();
         this.buttonStop.hide();
         stopService(new Intent(this, Compass.class)); // encerrar service executar
-
     }
 
     /**
      * Verifica se os campos que contem os valores de entradas são validos
+     *
      * @param editText
      * @return
      */
-    public boolean isCampoValido(EditText editText) {
+    public boolean isValidField(EditText editText) {
 
-        final long BPM_MAX = InputLimit.BEATS_MAX.getInputLimitValue();
-        final long BPM_DEFAULT = InputLimit.BEATS_DEFAULT.getInputLimitValue();
-        final long BPM_MIN = InputLimit.BEATS_MIN.getInputLimitValue();
-
-        boolean isCampoValido = true;
+        final long bpm_max = InputLimit.BEATS_MAX.getInputLimitValue();
+        final long bpm_min = InputLimit.BEATS_MIN.getInputLimitValue();
+        boolean isValid;
         String textValue = editText.getText().toString();
-
 
         if (TextUtils.isEmpty(textValue)) {
             throw new FieldEmptyException();
         }
 
-        long valorDoCampo = Long.parseLong(textValue);
+        long valueField = Long.parseLong(textValue);
 
-        if (valorDoCampo > BPM_MAX) {
+        if (valueField > bpm_max) {
 
-            editText.setError("Utilize BPM menores que " + BPM_MAX);
-            isCampoValido = false;
+            editText.setError("Utilize BPM menores que " + bpm_max);
+            isValid = false;
 
-        } else if (valorDoCampo < BPM_MIN) {
+        } else if (valueField < bpm_min) {
 
-            editText.setError("Utilize BPM maiores que " + BPM_MIN);
-            isCampoValido = false;
+            editText.setError("Utilize BPM maiores que " + bpm_min);
+            isValid = false;
 
         } else {
 
-            isCampoValido = true;
+            isValid = true;
         }
 
-        return isCampoValido;
-
+        return isValid;
     }
 
     /**
      * Seleciona o som a ser tocado
+     *
      * @param itemPosition
      */
     public void verifySpinnerSounds(int itemPosition) {
@@ -300,6 +291,8 @@ public class MainActivity extends AppCompatActivity {
             case 4:
                 this.soundValue = idRimshot;
                 break;
+            default:
+                this.soundValue = idBit8;
         }
     }
 
@@ -324,7 +317,7 @@ public class MainActivity extends AppCompatActivity {
 
         userInterface.setTimeInMinutes(seekBarTimer.getProgress());
         userInterface.setFrequencyBPM(Long.parseLong(textBpm.getText().toString()));
-        userInterface.setBeatsQuantity(seekBarBatidas.getProgress());
+        userInterface.setBeatsQuantity(seekBarBeats.getProgress());
 
         userInterface.createSomById(getSoundValue(), this);
         userInterface.createRhythmFigureByValue(seekBarBase.getProgress());
@@ -335,6 +328,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Cria as opções na interface do usuario
+     *
      * @param menu
      * @return
      */
@@ -347,6 +341,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * Veficia se as opções estão selecionadas
+     *
      * @param item
      * @return
      */
@@ -359,7 +354,7 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            startActivity(new Intent(this, ConfiguracoesActivity.class));
+            startActivity(new Intent(this, ConfigurationActivity.class));
             return true;
         }
 
@@ -374,10 +369,39 @@ public class MainActivity extends AppCompatActivity {
         if (inExecution) {
             stopService(new Intent(this, Compass.class)); // encerrar service executar
             inExecution = false;
-
         }
 
         super.onDestroy();
     }
 
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    public Action getIndexApiAction() {
+        Thing object = new Thing.Builder()
+                .setName("Main Page")
+                .setUrl(Uri.parse("http://[ENTER-YOUR-URL-HERE]"))
+                .build();
+        return new Action.Builder(Action.TYPE_VIEW)
+                .setObject(object)
+                .setActionStatus(Action.STATUS_TYPE_COMPLETED)
+                .build();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        client.connect();
+        AppIndex.AppIndexApi.start(client, getIndexApiAction());
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        AppIndex.AppIndexApi.end(client, getIndexApiAction());
+        client.disconnect();
+    }
 }

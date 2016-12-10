@@ -15,13 +15,10 @@ public class HardwareActions {
     private Vibrator vibrate;
     private Camera camera;
     private Context context;
-
     private boolean isVibrating;
     private boolean isLighting;
     private boolean hardwareSupported;
-
     private long delay;
-
     private HardwareActions() {}
 
     public static HardwareActions getInstance() {
@@ -47,7 +44,6 @@ public class HardwareActions {
         this.isVibrating = vibrating;
         this.isLighting = lighting;
         this.context = context;
-
         this.hardwareSupported = this.hardwareSupported();
     }
 
@@ -56,6 +52,7 @@ public class HardwareActions {
      * @param delay
      */
     public void setDelay(long delay) {
+
         this.delay = delay;
     }
 
@@ -65,7 +62,6 @@ public class HardwareActions {
      */
     private boolean hardwareSupported(){
         PackageManager pm = context.getPackageManager();
-
         boolean switchFlash = pm.hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH);
         boolean switchCamera = pm.hasSystemFeature(PackageManager.FEATURE_CAMERA);
         return switchFlash && switchCamera;
@@ -75,8 +71,9 @@ public class HardwareActions {
      * Ativando vibração
      */
     public void activeVibration(){
-        if(isVibrating)
-            vibrate.vibrate(delay/10);
+        if(isVibrating) {
+            vibrate.vibrate(delay / 10);
+        }
     }
 
     /**
@@ -84,7 +81,6 @@ public class HardwareActions {
      */
     public void activeLighting(){
         if((isLighting) && (hardwareSupported) && (camera == null)){
-
                 new Thread(){
 
                     @Override
