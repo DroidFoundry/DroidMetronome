@@ -6,21 +6,17 @@ import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.widget.Toast;
-
 import com.droidfoundry.droidmetronome.R;
 
 /**
- * Actibity responsavel pela configuração do sistema
+ * Activity responsavel pela configuração do sistema
  */
-public class ConfiguracoesActivity extends PreferenceActivity implements Preference.OnPreferenceChangeListener{
+public class ConfigurationActivity extends PreferenceActivity implements Preference.OnPreferenceChangeListener{
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         addPreferencesFromResource(R.xml.pref_general);
-
-        // For all preferences, attach an OnPreferenceChangeListener so the UI summary can be
-        // updated when the preference changes.
         bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_vibracao_key)));
         bindPreferenceSummaryToValue(findPreference(getString(R.string.pref_flash_key)));
     }
@@ -60,6 +56,5 @@ public class ConfiguracoesActivity extends PreferenceActivity implements Prefere
         }
         return true;
     }
-
 
 }

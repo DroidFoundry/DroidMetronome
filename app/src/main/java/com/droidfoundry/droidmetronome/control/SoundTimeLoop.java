@@ -43,7 +43,6 @@ public class SoundTimeLoop extends CountDownTimer {
         int rhythmFigureValue = rhythmFigure.getRhythmFigureValue();
         int rhythmFigureDecrement = rhythmFigureValue--;
 
-
         try {
             // Ativando luz
             HardwareActions.getInstance().activeLighting();
@@ -56,23 +55,19 @@ public class SoundTimeLoop extends CountDownTimer {
             }
 
             if (beatsCurrent < beatsMax) {
-
                 // Modo vibratório
                 HardwareActions.getInstance().activeVibration();
                 templateSound.playSoundAlto();
                 beatsCurrent++;
 
             } else {
-
                 // Modo vibratório
                 HardwareActions.getInstance().activeVibration();
                 templateSound.playSoundBaixo();
                 beatsCurrent = 1;
             }
-
             // Desativar flash
             HardwareActions.getInstance().desactiveLighting();
-
 
         } catch (RuntimeException e) {
 
@@ -98,7 +93,7 @@ public class SoundTimeLoop extends CountDownTimer {
      *
      * @param rhythmFigure
      */
-    public void setFiguraRitmica(RhythmFigure rhythmFigure) {
+    public void setRhythmFigure(RhythmFigure rhythmFigure) {
 
         this.rhythmFigure = rhythmFigure;
     }
@@ -108,9 +103,8 @@ public class SoundTimeLoop extends CountDownTimer {
      *
      * @param beatsMax
      */
-    public void setBatidasMaximo(int beatsMax) {
+    public void setBeatsMax(int beatsMax) {
 
         this.beatsMax = beatsMax;
     }
-
 }

@@ -47,4 +47,5 @@ dependencies {
     compile 'org.greenrobot:eventbus:3.0.0'
 
 //    compile 'com.getbase:floatingactionbutton:1.9.1'
+    compile 'com.google.android.gms:play-services-appindexing:8.4.0'
 }
