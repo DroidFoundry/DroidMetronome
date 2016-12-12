@@ -30,7 +30,12 @@ public class SoundTemplate {
         this.lowSound = sound.load(context, lowSound.getSoundSampleValue(), 1);
 
         this.sound.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
-
+            /**
+             *inicia reproducao do som
+             * @param soundPool
+             * @param i
+             * @param i1
+             */
                  @Override
                  public void onLoadComplete(SoundPool soundPool, int i, int i1) {
 
